@@ -18,6 +18,15 @@ def append_file(x, str): #arguments = name of file, string to append
 
 ###############################################################################
 
+#WRITE AT BEGINNING (hopefully)
+def write_beginning(x, str):
+    f=open(x, 'r+')
+    old=f.read()
+    f.seek(0)
+    f.write(str + old)
+    f.close()
+    # it works :D
+
 # PRINT CONTENTS OF A TEXT FILE
 def print_file(x): #argument = name of file
     f=open(x, 'r')
