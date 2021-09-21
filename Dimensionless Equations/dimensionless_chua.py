@@ -3,7 +3,6 @@
 import math
 import sys
 import numpy as np
-from scipy.integrate import odeint
 
 sys.path.append('/home/ashmita/Desktop/ASHMITA/APanda_Lib')
 # importing all files at once, now we just need to write function name to access it
@@ -12,7 +11,7 @@ from APanda_Lib import *
 import chua_circuit_simulations
 
 #dimensionless chua
-G=0.7
+R=1.4
 C1=1/9
 C2=1
 L=1/7
@@ -30,15 +29,14 @@ b0=[x0, y0, z0]
 def Yfunc(t,b):
     x,y,z=b
     gx=m0*x+0.5*(m1-m0)*(abs(x+1)-abs(x-1))
-    Y=[(1/C1)*(G*(y-x)-gx), (1/C2)*(G*(x-y)+z), (-1/L)*y]
+    Y=[(1/C1)*((1/R)*(y-x)-gx), (1/C2)*((1/R)*(x-y)+z), (-1/L)*y]
     return Y
     #
 
-
-h=float(input("Please enter value of h.\n"))
-N=int(input("Please enter number of iterations.\n"))
+h=0.1
+N=5000
 path="/home/ashmita/Desktop/ASHMITA/NISER Study/7th Semester/Open Lab/Non-Linear Circuit/Dimensionless/"
-name=f'Dimensionless Chua for h={h}, N={N}'
+name=f'dimensionless'
 n=path+name
 f=open(n, "w")
 f.close()
