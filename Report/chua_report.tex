@@ -299,7 +299,7 @@ The equations of Chua's circuit are given as a system of three coupled different
 \end{align}
 where, $G=\dfrac{1}{R}$ is the conductance, and $g(x)$ is a piece-wise linear function. It is given as :
 \begin{align}
-	g(x)&=m_0x+\dfrac{1}{2}(m_1-m_0)\left[ |x+B_p|-|x-B_p| \right] \label{eq:4}
+	g(v)&=m_0v+\dfrac{1}{2}(m_1-m_0)\left[ |v+B_p|-|v-B_p| \right] \label{eq:4}
 \end{align}
 where,
 \begin{align*}
@@ -335,8 +335,48 @@ The `append.file()' function saves the data points (t, x, y and z) after each it
 \subsubsection{Plots with Dimensionless Constants}
 The following values were used for the constants :
 \[ G=0.7 \quad C_1=1/9 \quad C_2=1 \quad L=1/7 \quad B_p=1 \quad m_0=-0.5 \quad m_1=-0.8 \]
+The function g(v) in (\myref{eq:4}) can be plotted using the constants. 
+\begin{figure}[H] %fig 3
+	\centering
+	\includegraphics[width=0.75\textwidth,height=0.3\textheight]{Plots/fig3_g(v).png}
+	\caption{Fig 3. Three Segment Linear Function : g(v)}
+\end{figure}
 The code for defining the function, initial values and calling the function is :
 \lstinputlisting[language=Python]{/home/ashmita/Desktop/ASHMITA/NISER Study/7th Semester/Open Lab/Non-Linear Circuit/Dimensionless/dimensionless_chua.py}
+The data file obtained is plotted using Gnuplot.
+\begin{figure}[H] % fig 4
+	\centering
+	\includegraphics[width=0.8\textwidth]{Plots/fig4_dimensionless_plot.png}
+	\caption{Fig 4. 3D plot of $v_{C_1}$ vs $v_{C_2}$ for dimensionless constants}
+\end{figure}
+Thus, we do obtain a double scroll attractor for the Chua Circuit. In principle, the Chua Ciruit does exhibit chaotic behaviour. 
+%
+%subsubsection 3.2.3 - Varying R with dimensionful constants
+\subsubsection{Varying R with Dimensionful Constants}
+Now, we will attempt to use constants which represent actual dimensionful values and try to observe how the graph changes when we change the value of resistance $R$. \linebreak
+
+We will define conversion factors to relate the value of our constants to values of actual electronic circuit components. Current will be measured in Amperes(A), potential differences in Volts(V), capacitances in Farads(F), inductance in Henry(H) and resistance in Ohm($\Omega$). Resistivity is expressed in Siemens(S)\linebreak
+If we want currents of milliamperes to be in the circuit, we will adjust all current values by 1000. It will thus increase resistances and inductance by 1000, while decreasing capacitances by the same factor. Also, we can also rescale the values of time by some factor k in (\myref{eq:3}). This will leave all resistances unaffected, and all capacitors and inductors will be scaled by same factor k. For ease of using values in the code, I have chosen k to be $10^{-4}$, i.e., I rescale all capacitances and inductances by $10^{-4}$. This gives us the final conversion factors as :
+\begin{align*}
+	R & : 1 \equiv 1000 \Omega = 1k\Omega \\
+	C_1, C_2 & : 1 \equiv 10^{-7} F = 100 nF \\
+	L & : 1 \equiv 10^{-1} H = 100 mH \\
+	m_0, m_1 & : 1 \equiv 10^{-3} S = 1 mS \\
+	B_p & : 1 \equiv 1 V
+\end{align*}
+So, the constants used in the previous part correspond to :
+\[R=1.43k\Omega \; ;  C_1=11.11 nF \; ; C_2=100 nF \; ; L=14.29 mH \; ; B_p = 1V \; ; m_0 = -0.5 mS \; ; m_1 = -0.8 mS \]
+We will now attempt to vary R and observe how the output changes. \linebreak
+The code for defining the function, initial values, varying R values and calling the function is :
+\lstinputlisting[language=Python]{/home/ashmita/Desktop/ASHMITA/NISER Study/7th Semester/Open Lab/Non-Linear Circuit/Varying R/varying_R.py}
+Plotting the data files obtained in Gnuplot. 
+\begin{enumerate}[\textbf{i.}]
+	\item $\bm{R=2.0 k\Omega}$
+\end{enumerate}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%section 4 - Simulation to Practical Implementation
 
 
 
