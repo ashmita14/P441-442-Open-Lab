@@ -370,11 +370,115 @@ We will now attempt to vary R and observe how the output changes. \linebreak
 The code for defining the function, initial values, varying R values and calling the function is :
 \lstinputlisting[language=Python]{/home/ashmita/Desktop/ASHMITA/NISER Study/7th Semester/Open Lab/Non-Linear Circuit/Varying R/varying_R.py}
 Plotting the data files obtained in Gnuplot. 
-\begin{enumerate}[\textbf{i.}]
-	\item $\bm{R=2.0 k\Omega}$
-\end{enumerate}
+\begin{figure}[H] %fig 5
+	\centering
+	% a and b
+	\caption{Fig 5. R Bifurcation in Theoretical Chua Circuit using a Three Segment Non-Linear Resistance}
+	\begin{subfigure}[b]{0.5\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{Plots/fig5(a)_2k.png}
+		\caption{(a) $R=2.0k\Omega$}
+	\end{subfigure}%
+	\begin{subfigure}[b]{0.5\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{Plots/fig5(b)_1.9k.png}
+		\caption{(b) $R=1.9k\Omega$}
+	\end{subfigure}
+\end{figure}
+\begin{figure}[H] %fig 5 contd
+	\centering
+	% c and d
+	\begin{subfigure}[b]{0.5\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{Plots/fig5(c)_1.8k.png}
+		\caption{(c) $R=1.8k\Omega$}
+	\end{subfigure}%
+	\begin{subfigure}[b]{0.5\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{Plots/fig5(d)_1.7k.png}
+		\caption{(d) $R=1.7k\Omega$}
+	\end{subfigure}
+	% e and f
+	\begin{subfigure}[b]{0.5\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{Plots/fig5(e)_1.6k.png}
+		\caption{(e) $R=1.6k\Omega$}
+	\end{subfigure}%
+	\begin{subfigure}[b]{0.5\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{Plots/fig5(f)_1.55k.png}
+		\caption{(f) $R=1.55k\Omega$}
+	\end{subfigure}
+	% g and h
+	\begin{subfigure}[b]{0.5\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{Plots/fig5(g)_1.5k.png}
+		\caption{(g) $R=1.5k\Omega$}
+	\end{subfigure}%
+	\begin{subfigure}[b]{0.5\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{Plots/fig5(i)_1.48k.png}
+		\caption{(h) $R=1.48k\Omega$}
+	\end{subfigure}
+	% i and j
+	\begin{subfigure}[b]{0.5\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{Plots/fig5(k)_1.46k.png}
+		\caption{(i) $R=1.46k\Omega$}
+	\end{subfigure}%
+	\begin{subfigure}[b]{0.5\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{Plots/fig5(n)_1.42k.png}
+		\caption{(j) $R=1.42k\Omega$}
+	\end{subfigure}
+\end{figure}
+%
+\begin{figure}[H] %fig 5 contd
+	\centering
+	% k and l
+	\begin{subfigure}[b]{0.5\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{Plots/fig5(o)_1.40k.png}
+		\caption{(k) $R=1.4k\Omega$}
+	\end{subfigure}%
+	\begin{subfigure}[b]{0.5\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{Plots/fig5(p)_1.35k.png}
+		\caption{(l) $R=1.35k\Omega$}
+	\end{subfigure}
+	% m and n
+	\begin{subfigure}[b]{0.5\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{Plots/fig5(q)_1.30k.png}
+		\caption{(m) $R=1.3k\Omega$}
+	\end{subfigure}%
+	\begin{subfigure}[b]{0.5\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{Plots/fig5(r)_1.25k.png}
+		\caption{(n) $R=1.25k\Omega$}
+	\end{subfigure}
+	% o and p
+	\begin{subfigure}[b]{0.5\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{Plots/fig5(s)_1.20k.png}
+		\caption{(o) $R=1.2k\Omega$}
+	\end{subfigure}%
+	\begin{subfigure}[b]{0.5\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{Plots/fig5(t)_1.10k.png}
+		\caption{(p) $R=1.1k\Omega$}
+	\end{subfigure}
+\end{figure}
+We observe that $R=2.0 k\Omega$ shows DC Equilibrium. As resistance is reduced, the characteristics looks like an unbounded spiral. \linebreak
+The Rossler Attractor forms around $R=1.5 k\Omega$ and the Double Scroll Attractor is first formed at $R=1.48k\Omega$. As the resistance is further reduced, the size of the double scroll also decreases. \linebreak
+By $R=1.25k\Omega$ the double scroll character is lost, and for lower resistances the graphs show a spiral with no upper bound. The values of $v_{C_1}$, $v_{C_2}$ and $i_L$ apparently take values in the ranges of $10^{43}$ and $10^{47}$. This is not physically possible.
+%
+%subsection 4 - Problems with Simulation
+\subsection{Problems with Simulation}
+The current simulation of the Chua Circuit is not physically viable, as is evident from the graphs obtained for various values of resistance. It predicts that except for a small window of resistance values (from $R=1.5k\Omega$ to $R=1.3k\Omega$) the values of voltages and current is not bounded. \linebreak
 
-
+The problems arises because we have failed to take into account the fact that all physical resistors are eventually passive, i.e., for large enough values of voltages applied across its terminals, the power consumed by the resistor becomes positive. \linebreak
+In our current equation (\myref{eq:4}) and graph of g(v), we see that the condition of eventual passivisity has not been taken into account. The power consumed by the resistor is negative for all values of voltages.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %section 4 - Simulation to Practical Implementation
 
