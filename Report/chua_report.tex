@@ -481,6 +481,106 @@ The problems arises because we have failed to take into account the fact that al
 In our current equation (\myref{eq:4}) and graph of g(v), we see that the condition of eventual passivisity has not been taken into account. The power consumed by the resistor is negative for all values of voltages.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %section 4 - Simulation to Practical Implementation
+\section{Simulation to Practical Implementation}
+%%
+%subsection 4.1 - Negative Resistance
+\subsection{Negative Resistance}
+To implement a Chua Circuit practically we first need to construct a negative resistance which follows the characteristics of $g(v)$ graph. One way to construct a negative resistance is to connect three positive linear resistors to a voltage controlled voltage source (VCVS).
+%
+%subsubsection 4.1.1-VCVS
+\subsubsection{Voltage Controlled Voltage Source}
+A VCVS is defined to be an ideal circuit element with two input and two output terminals such that no current flows between the input terminals and voltage across output terminals is dependent on the volatge across input terminals.
+\[ v_o= f(v_d) \]
+$f(.)$ could have any functional dependence, but the simplest non-trivial relation occurs when it is linear. 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{Images/fig6_vcvs.png}
+	\caption{Fig 6. Voltage Controlled Voltage Source}
+\end{figure} 
+%
+%subsubsection 4.1.2 - negative resistance using VCVS
+\subsubsection{Negative Resistance using ideal VCVS}
+The circuit diagram to build a negative resistance using an ideal VCVS and three linear resistors is given as follows :
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{Images/fig7_Nr with vcvs.png}
+	\caption{Fig 7. Negative Resistance using VCVS}
+\end{figure}
+Let us assume the VCVS follows a linear relationship :
+\begin{equation}
+	v_o=Av_d \label{eq:8}
+\end{equation}
+A is some proportionality constant. \linebreak
+
+Now, Kirchoff's Current Law (KCL) says that \textit{for any node in an electrical circuit, the sum of the currents entering the node is equal to the sum of the currents leaving the node}. \linebreak
+
+Applying KCl on node (1) (in Fig 7):
+\begin{equation}
+	i=i_1 \quad ; \quad  i_1=\dfrac{v-v_o}{R_1} \label{eq:9}
+\end{equation}
+We can write this because no current goes inside VCVS.\linebreak
+
+Now, Kirchoff's Voltage Law (KVL) says that \textit{if we move around a closed loop in a fixed direction then the sum of all the potential differences around the loop is zero.} \linebreak
+
+Applying KVL along loop 1-2-3-0 (in Fig 7):
+\begin{align}
+	v&=v_d + i_3R_3 \label{eq:10} \\
+	i_3&=\dfrac{v_o}{R_2+R_3} \label{eq:11}
+\end{align}
+Using (\myref{eq:11}) in (\myref{eq:10}) :
+\begin{align}
+	v&=v_d + \dfrac{v R_3 v_d}{R_2+R_3} = \dfrac{R_2+(1+A)R_3}{R_2+R_3}v_d \nonumber \\
+	\intertext{Now, using (\myref{eq:8}) in the above equation : }
+	\therefore v&= \left\{ \dfrac{R_2+(1+A)R_3}{A(R_2+R_3)} \right\}v_o \label{eq:12}
+\end{align}
+We can now calculate the current $i$ using (\myref{eq:9}) :
+\begin{align*}
+	i&=\dfrac{v}{R_1}-\dfrac{v_o}{R_1} \\
+	\intertext{Using equation of $v$ and $v_o$ (\myref{eq:12}) :}
+	\implies i &= \dfrac{v}{R_1}-\dfrac{1}{R_1}\left\{ \dfrac{A(R_2+R_3)}{R_2+(1+A)R_3}v \right\} \\
+	\implies i &= \dfrac{vR_2+vR_3+vAR_3-AR_2v-AR_3v}{R_1\left[ R_2+(1+A)R_3 \right]}
+\end{align*}
+So we finally obtain :
+\begin{equation}
+	\therefore i = \left\{ \dfrac{R_2(1-A)+R_3}{R_1\left[ R_2+(1+A)R_3 \right] } \right\} \label{eq:13}
+\end{equation}
+Now if we take A to be very large, $A\gg 1$, greater than $R_1, R_2$ and $R_3$, we can write :
+\begin{align*}
+	\implies i & \thickapprox \dfrac{-R_2A+R_3}{R_1(R_2+R_3A)}v \\
+	\intertext{Also, as $R_2A \gg R_3$ and $R_1R_3A \gg R_1R_2$ :}
+	\implies i & \thickapprox -\dfrac{R_2A}{R_1R_3A}v \thickapprox -\dfrac{R_2}{R_1R_3}v
+\end{align*}
+We can now set $R_1=R_2$, and we obtain :
+\begin{equation}
+	i=-\dfrac{1}{R_3}v \label{eq:14}
+\end{equation}
+Thus it now appears that the segment $N_R$ (in Fig 7) now has negative resistance $-R_3$. 
+%
+%subsubsecrion 4.1.3 - opamps as VCVS
+\subsubsection{Op-Amps as VCVS}
+An opamp is the practical or real-life approximation of a VCVS. The voltage applied across inverting and non-inverting terminals produces voltage at output terminal, if we take the reference terminal to be ground.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{Images/fig8_opamp as vcvs.png}
+	\caption{Fig 8. Op-amp as VCVS}
+\end{figure}
+Ideal opamps there is no current entering the circuit, i.e., $i_d=0$ and the loop gain is infinite. But typically, most opamps produce output voltages 100,000 times larger than the potential difference between input terminals. \linebreak
+
+The output of a opamp becomes constant at some values of $v_d=\pm E_{sat}$.
+\begin{align*}
+	\text{For } v_d\geq \dfrac{E_{sat}}{A}+v_{OS} & \quad \text{: positive saturation region} \\
+	\text{For } v_d\leq-\dfrac{E_{sat}}{A}+v_{OS} & \quad \text{: negative saturation region} \\
+	\text{For } -\dfrac{E_{sat}}{A}+v_{OS}< v_d < \dfrac{E_{sat}}{A}+v_{OS} & \quad \text{: linear region}
+\end{align*}
+$v_{OS}$ is the offset voltage. 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{Images/fig9_opamp characteristics.png}
+	\caption{Fig 9. Output Characteristics of an Op-Amp}
+\end{figure}
+From here on, we will assume :
+\[ v_{OS} =0 \quad ; \quad i_d=0 \quad ; \quad v_o=f(v_d) \]
+
 
 
 
