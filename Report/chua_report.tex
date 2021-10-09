@@ -580,6 +580,55 @@ $v_{OS}$ is the offset voltage.
 \end{figure}
 From here on, we will assume :
 \[ v_{OS} =0 \quad ; \quad i_d=0 \quad ; \quad v_o=f(v_d) \]
+%
+%subsubsection 4.1.4
+\subsubsection{Negative Resistance using Op-Amps}
+We can build a negative resistance using the analysis we did previously, while using Op-Amp as VCVS.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{Images/fig10_negative resistance using opamp.png}
+	\caption{Fig 10. Negative Resistance using Op-Amps}
+\end{figure}
+From previous circuit analysis we have :
+\begin{equation}
+	i=\dfrac{v-v_o}{R_1} \quad ; \quad v=v_d+\dfrac{R_3}{R_2+R_3}v_o \quad ; \quad v_o = Av_d \label{eq:15}
+\end{equation}
+As now we have an op-amp, there are three distinct regions depending on the voltage behavior :
+\begin{align*}
+	\text{Negative Saturation} & : \qquad  v_o = -E_{sat} \qquad ; \qquad v_d \leq -\dfrac{E_{sat}}{A} \\
+	\text{Linear Region} & : \qquad  v_o=Av_d \qquad ; \qquad -\dfrac{E_{sat}}{A} < v_d < \dfrac{E_{sat}}{A} \\
+	\text{Positive Saturation} & : \qquad v_0=E_{sat} \qquad ; \qquad v_d\geq \dfrac{E_{sat}}{A} \\
+\end{align*}
+\textbf{\uline{Positive Saturation}} \linebreak %positive saturration
+In the positive saturation region the output voltage is fixed at $E_{sat}$, even if the input changes.
+\begin{equation}
+	v_o = E_{sat} \qquad ; \qquad v_d \geq \dfrac{E_{sat}}{A} \label{eq:16}
+\end{equation}
+From (\myref{eq:15}) and (\myref{eq:16}), we have equation of current as :
+\begin{equation}
+	i=\dfrac{v}{R_1}-\dfrac{E_{sat}}{R_1} \label{eq:17}
+\end{equation}
+We can write the equation for voltage as :
+\begin{align*}
+	v&= v_d+\dfrac{R_3}{R_2+R_3}v_o \\
+	\implies v & \geq \dfrac{E_{sat}}{A}+\dfrac{R_3}{R_2+R_3}E_{sat} \\
+	\implies v & \geq E_{sat}\left\{ \dfrac{R_2+R_3+AR_3}{A(R_2+R_3)} \right\}
+\end{align*}
+So we finally obtain :
+\begin{equation}
+	v \geq \left\{ \dfrac{R_2+(1+A)R_3}{A(R_2+R_3)} \right\} E_{sat} \label{eq:18}
+\end{equation}
+So the minimum value of valid $v$ for positive saturation, or the positive breakpoint is given as :
+\begin{equation}
+	B^+_P = \dfrac{R_2+(1+A)R_3}{A(R_2+R_3)} E_{sat} \label{eq:19}
+\end{equation}
+Now for $A\longrightarrow \infty$, we have $(1+A)R_3+R_2 \longrightarrow AR_3$. So we obtain the breakpoint as :
+\begin{equation}
+	B^+_P \simeq \dfrac{R_3}{R_2+R_3}E_{sat} \label{eq:20}
+\end{equation}
+
+
+
 
 
 
