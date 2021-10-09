@@ -74,7 +74,7 @@ top=20mm,
 colorlinks=true,
 linkcolor=black,
 filecolor=magenta,
-urlcolor=Black,
+urlcolor=blue,
 citecolor=blue,
 }
 
@@ -365,7 +365,9 @@ If we want currents of milliamperes to be in the circuit, we will adjust all cur
 	B_p & : 1 \equiv 1 V
 \end{align*}
 So, the constants used in the previous part correspond to :
-\[R=1.43k\Omega \; ;  C_1=11.11 nF \; ; C_2=100 nF \; ; L=14.29 mH \; ; B_p = 1V \; ; m_0 = -0.5 mS \; ; m_1 = -0.8 mS \]
+\begin{equation*}
+	R=1.43k\Omega \; ;  C_1=11.11 nF \; ; C_2=100 nF \; ; L=14.29 mH \; ; B_p = 1V \; ; m_0 = -0.5 mS \; ; m_1 = -0.8 mS
+\end{equation*}
 We will now attempt to vary R and observe how the output changes. \linebreak
 The code for defining the function, initial values, varying R values and calling the function is :
 \lstinputlisting[language=Python]{/home/ashmita/Desktop/ASHMITA/NISER Study/7th Semester/Open Lab/Non-Linear Circuit/Varying R/varying_R.py}
@@ -480,8 +482,8 @@ The current simulation of the Chua Circuit is not physically viable, as is evide
 The problems arises because we have failed to take into account the fact that all physical resistors are eventually passive, i.e., for large enough values of voltages applied across its terminals, the power consumed by the resistor becomes positive. \linebreak
 In our current equation (\myref{eq:4}) and graph of g(v), we see that the condition of eventual passivisity has not been taken into account. The power consumed by the resistor is negative for all values of voltages.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%section 4 - Simulation to Practical Implementation
-\section{Simulation to Practical Implementation}
+%section 4 - Simulation to Practical Design
+\section{Simulation to Practical Design}
 %%
 %subsection 4.1 - Negative Resistance
 \subsection{Negative Resistance}
@@ -622,10 +624,144 @@ So the minimum value of valid $v$ for positive saturation, or the positive break
 \begin{equation}
 	B^+_P = \dfrac{R_2+(1+A)R_3}{A(R_2+R_3)} E_{sat} \label{eq:19}
 \end{equation}
-Now for $A\longrightarrow \infty$, we have $(1+A)R_3+R_2 \longrightarrow AR_3$. So we obtain the breakpoint as :
+Now if A is very large, we have $(1+A)R_3+R_2 \longrightarrow AR_3$. So we obtain the breakpoint as :
 \begin{equation}
 	B^+_P \simeq \dfrac{R_3}{R_2+R_3}E_{sat} \label{eq:20}
 \end{equation}
+Slope of the graph is given as :
+\begin{equation}
+	m_o=\dfrac{1}{R_1} \label{eq:21}
+\end{equation}
+\textbf{\uline{Negative Saturation}} \linebreak %negative saturation
+In negative saturation, $v_o=-E_{sat}$. As all other equations remain same, we have the breakspoint as :
+\begin{equation}
+	B^-_P = - \dfrac{R_2+(1+A)R_3}{A(R_2+R_3)}E_{sat} \label{eq:22}
+\end{equation}
+For very large A, we get the breakpoint as :
+\begin{equation}
+	B^-_P \simeq -\dfrac{R_3}{R_2+R_3}E_{sat} \label{eq:23}
+\end{equation}
+The slope is still $m_o$. \linebreak
+\textbf{\uline{Linear Region}} \linebreak %linear region
+In the linear region, we have the standard circuit analysis we did before given in (\myref{eq:15}). \linebreak
+Writing voltage $v_d$ in terms of $v$ :
+\begin{align*}
+	v&=v_d+\dfrac{R_3}{R_2+R_3}v_o \\
+	\implies v &= v_d+\dfrac{R_3}{R_2+R_3}Av_d \\
+	\implies v&= \dfrac{R_2+(1+A)}{R_2+R_3} v_d 
+\end{align*}
+Therefore, we obtain :
+\begin{equation}
+	v_d= \dfrac{R_2+R_3}{R_2+(1+A)R_3}v \label{eq:24}
+\end{equation}
+Using this (\myref{eq:24}) to find current $i$ :
+\begin{equation}
+	i = \dfrac{(1-A)R_2+R_3}{R_1\left[ R_2+(1+A)R_3 \right]}v \label{eq:25}
+\end{equation}
+For large A, we have :
+\begin{equation}
+	i \simeq - \dfrac{R_2}{R_1R_3}v \label{eq:26}
+\end{equation}
+The linear region is characterised by :
+\begin{align*}
+	& -\dfrac{E_{sat}}{A}<v_d<\dfrac{E_{sat}}{A} \\
+	\implies & -\dfrac{E_{sat}}{A}<\dfrac{R_2+R_3}{R_2+(1+A)R_3}v < \dfrac{E_{sat}}{A} \\
+	\intertext{For $v$ : }
+	\therefore & -E_{sat}\dfrac{R_2+(1+A)R_3}{A(R_2+R_3)} < v < E_{sat} \dfrac{R_2+(1+A)R_3}{A(R_2+R_3)} \\
+	\intertext{For large A, we have :}
+	\implies & -E_{sat}\dfrac{R_3}{R_2+R_3}<v<E_{sat}\dfrac{R_3}{R_2+R_3} \\
+	\intertext{From (\myref{eq:20}) and (\myref{eq:23}) :}
+	\therefore & B^-_P < v < B^+_P 
+\end{align*}
+Thus, when voltage $v$ lies between breakpoints, the op-amp functions in the linear region. \linebreak
+Slope of the I-V graph in this region is :
+\begin{equation}
+	m_1=-\dfrac{R_2}{R_1R_3} \label{eq:27}
+\end{equation}
+The I-V characteristics of negative resistance implemented using op-amps should be of the form :
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{Images/fig11_negative characteristics.png}
+	\caption{Fig 11. Expected I-V Characteristics of Negative Resistance}
+\end{figure}
+%%
+%subsection 4.2 - Non-Linear Resistance
+\subsection{Non-Linear Resistance}
+Now that we have the negative resistances, we would like to implement our Non-Linear resistance to be used in the circuit. To do so, we need to put two negative resistances in parallel. \linebreak
+$N_{R_1}$ includes resistances $R_1$, $R_2$ and $R_3$. It has slopes $m_{01}$, $m_{11}$ and breakpoints $\pm B_{P1}$. \linebreak
+$N_{R_2}$ includes resistances $R_4$, $R_5$ and $R_6$. It has slopes $m_{02}$, $m_{12}$ and breakpoints $\pm B_{P2}$. \linebreak
+
+We will assume $R_1=R_2$ and $R_4=R_5$. 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{Images/fig12_nonlinear.png}
+	\caption{Fig 12. Non-linear Resistance}
+\end{figure}
+So for $N_{R_1}$ we have :
+\begin{equation}
+	m_{01}=\dfrac{1}{R_1} \qquad ; \qquad m_{11}=-\dfrac{1}{R_3} \qquad ; \qquad B_{P1}=\pm \dfrac{R_3}{R_2+R_3}E_{sat} \label{eq:28}
+\end{equation}
+For $N_{R_2}$ we have :
+\begin{equation}
+	m_{02}=\dfrac{1}{R_4} \qquad ; \qquad m_{12}= -\dfrac{1}{R_6} \qquad ; \qquad B_{P2}= \pm \dfrac{R_6}{R_5+R_6}E_{sat} \label{eq:29} 
+\end{equation}
+Slopes of $N_{R_1}$ and $N_{R_2}$ are connected to the slopes of the combined graph is :
+\begin{equation}
+	m_{11}+m_{02}=m_0 \qquad ; \qquad m_{11}+m_{12}=m_1 \label{eq:30}
+\end{equation}
+The expected I-V graph of non-linear resistance is as follows :
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{Images/fig13_nonlinear characteristics.png}
+	\caption{Fig 13. Expected I-V Characteristics of non-linear resistance}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%section 5 - Practical Implementation using LTSpice
+\section{Practical Implementation with LTSpice}
+LTSpice was used to practically implement the Chua Ciruit. The circuit design is used from the paper by Kennedy[{\color{red}{put ref}}] (Fig 101. \linebreak
+
+All op-amps used are TL082, which was downloaded as a third-party tool from the website \url{http://www.chaotic-circuits.com/simulating-electronic-circuits/} and implemented into the circuit.\linebreak
+%%
+%subsection 5.1 - Component Values
+\subsection{Setting Component Values}
+9V voltage sources were used to power the op-amps. The values of resistances, capacitors and inductors used to implement the circuit is as follows :
+\begin{align*}
+	\intertext{\textbf{For $\bm{N_{R_1}}$ :}}
+	R_1 &= 220\Omega \pm 5\% \\
+	R_2 &= 220\Omega \pm 5\% \\
+	R_3 &= 2.2k\Omega \pm 5\% \\
+	\intertext{\textbf{For $\bm{N_{R_2}}$ :}}
+	R_4 &= 22k\Omega \pm 5\% \\
+	R_5 &= 22k\Omega \pm 5\% \\
+	R_6 &= 3.3k\Omega \pm 5\% \\ 
+	\intertext{\textbf{Rest of the circuit elements :}}
+	C_1 &= 10nF \pm 5\% \\
+	C_2 &= 100nF \pm 5\% \\
+	L &= 18mH \pm 10\% \\
+	R &= 2.0k\Omega \text{ to } 1.2k\Omega 
+\end{align*}
+$R$ is varied from $2.0k\Omega$ to $1.2k\Omega$ to observe the various stages of the bifurcation sequence. 
+%%
+%subsection 5.2 - Negative Resistance
+\subsection{Negative Resistances}
+First the negative resistances are individually implemented in LTSpice to ensure they function as we theoretically expect them to. The saturation voltage ($E_{sat}$) for TL082 and breakpoints for both resistors is also obtained. \linebreak
+
+To measure the output voltage, a small resistance of value $R=10\Omega$ is put in series and the current across is plotted vs the input voltage.
+%
+%subsubsection 5.2.1 - N_{R_1}
+\subsubsection{N\textsubscript{R1}}
+
+The values of slopes for $N_{R_1}$ are obtained from (\myref{eq:28}) as :
+\begin{align*}
+	m_{01}&=4.545\times 10^{-3} S = 4.545 mS \\ 
+	m_{11}&= -4.545\times 10^{-4} S = -0.4545 mS 
+\end{align*}
+The values of sloped for $N_{R_2}$ are obtained from (\myref{eq:29}) as :
+\begin{align*}
+	m_{02}&=4.545\times 10^{-5}S = 0.04545 mS \\
+	m_{12}&=-0.303\times 10^{-3}S = -0.303 mS
+\end{align*}
+So the value of sloped for the 
 
 
 
