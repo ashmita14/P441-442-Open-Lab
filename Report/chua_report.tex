@@ -85,7 +85,8 @@ citecolor=blue,
             \node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
             
 %command for making capital roman numerals
-%\newcommand{\RomanNum}[1]{\MakeUppercase{\romannumeral #1}}
+\newcommand{\RomanNum}[1]{\MakeUppercase{\romannumeral #1}}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% DOCUMENT BEGINS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -738,9 +739,9 @@ All op-amps used are TL082, which was downloaded as a third-party tool from the 
 	C_1 &= 10nF \pm 5\% \\
 	C_2 &= 100nF \pm 5\% \\
 	L &= 18mH \pm 10\% \\
-	R &= 2.0k\Omega \text{ to } 1.2k\Omega 
+	R &= 2.2k\Omega \text{ to } 1.2k\Omega 
 \end{align*}
-$R$ is varied from $2.0k\Omega$ to $1.2k\Omega$ to observe the various stages of the bifurcation sequence. 
+$R$ is varied from $2.2k\Omega$ to $1.2k\Omega$ to observe the various stages of the bifurcation sequence. 
 %%
 %subsection 5.2 - Negative Resistance
 \subsection{Negative Resistances}
@@ -793,6 +794,158 @@ The values of slopes and breakpoints for $N_{R_2}$ are obtained from (\myref{eq:
 	m_{12}&=-0.303\times 10^{-3}S = -0.303 mS \\
 	B_{P2}&= \pm 0.976V
 \end{align*}
+%%
+%subsection 5.3 - Non-Linear Resistance
+\subsection{Non-Linear Resistance}
+The Non-Linear negative resistance is implemented in LTSpice using two linear negative resistances in parallel. $V_3$ is a variable DC voltage source and R is a small resistance. 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{LTSpice/nonlinear NR_circuit.png}
+	\caption{Fig 18. Non-Linear Negative Resistance $N_R$ circuit}
+\end{figure}
+To obtain the corresponding I-V graph, the circuit is run using DC Sweep mode from -10V to 10V with intervals of 100mV. The saturation voltage can be seen at $E_{sat}=\pm 7.48V$. 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{LTSpice/nonlinear NR_plot.png}
+	\caption{Fig 19. I-V Characteristics Non-Linear Negative Resistance $N_R$}
+\end{figure}
+The slope of the graph can be calculated from (\myref{eq:30}) :
+\begin{align*}
+	m_0=m_{11}+m_{02}=-0.4545+0.04545 =-0.4905 mS \\
+	m_1=m_{11}+m_{12}=-0.4545-0.303= -0.7575mS
+\end{align*}
+%%
+%subsection 5.4 - Chua Circuit
+\subsection{Chua Circuit}
+Finally, Chua Circuit can be implemented in LTSpice using the non-linear resistance, a resistance ($R$) whose value we can vary from $2.2k\Omega$ to $1.2k\Omega$, two capacitances and one inductor. 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{LTSpice/chua_circuit.png}
+	\caption{Fig 20. Chua Circuit in LTSpice}
+\end{figure}
+The circuit is run in Transient mode. It runs for 0.1sec with maximum timestep being 1E-05sec. The data starts getting recorded at startup. \linebreak
+
+To obtain the characteritics, we need to plot voltage across capacitance 1 ($v_{C1}$) in x-axis vs voltage across capacitance 2 ($v_{C2}$) in y-axis. In the LTSpice circuit :
+\begin{align*}
+	v_{C1} &\equiv \text{V(n002)} \\
+	v_{C2} &\equiv \text{V(n001)}
+\end{align*}
+For different values of $R$ we stages of the bifurcation sequence, from period-0 to limit cycle. \linebreak
+%R=2.2k
+\subsubsection*{\romannum{1}. $R=2.2k\Omega$}
+\begin{figure}[H] %2.2k
+	\centering
+	\includegraphics[width=\textwidth]{LTSpice/R=2.2k.png}
+	\caption{Fig 21. $R=2.2k\Omega$}
+\end{figure}
+%R=2.1k
+\subsubsection*{\romannum{2}. $R=2.1k\Omega$}
+Period-0 of birfurcation sequence.
+\begin{figure}[H] %2.1k
+	\centering 
+	\includegraphics[width=\textwidth]{LTSpice/R=2.1k.png}
+	\caption{Fig 22. $R=2.1k\Omega$ : Period-0}
+\end{figure}
+%R=1.96k
+\subsubsection*{\romannum{3}. $R=1.96k\Omega$}
+Period-1 of bifurcation sequence.
+\begin{figure}[H] %1.96k
+	\centering
+	\includegraphics[width=\textwidth]{LTSpice/R=1.96k.png}
+	\caption{Fig 23. $R=1.96k\Omega$ : Period-1}
+\end{figure}
+%R=1.94k
+\subsubsection*{\romannum{4}. $R=1.94k\Omega$}
+\begin{figure}[H] %1.94k
+	\centering
+	\includegraphics[width=\textwidth]{LTSpice/R=1.94k.png}
+	\caption{Fig 24. $R=1.94k\Omega$}
+\end{figure}
+%R=1.935k
+\subsubsection*{\romannum{5}. $R=1.935k\Omega$}
+Period-2 of bifurcation sequence.
+\begin{figure}[H] %1.935k
+	\centering
+	\includegraphics[width=\textwidth]{LTSpice/R=1.935k.png}
+	\caption{Fig 25. $R=1.935k\Omega$ : Period-2}
+\end{figure}
+%R=1.927k
+\subsubsection*{\romannum{6}. $R=1.927k\Omega$}
+Period-4 of bifurcation sequence.
+\begin{figure}[H] %1.927k
+	\centering
+	\includegraphics[width=\textwidth]{LTSpice/R=1.927k.png}
+	\caption{Fig 26. $R=1.927k\Omega$ : Period-4}
+\end{figure}
+%R=1.91k
+\subsubsection*{\romannum{7}. $R=1.91k\Omega$}
+Period-3 window of bifurcation sequence.
+\begin{figure}[H] %1.91k
+	\centering
+	\includegraphics[width=\textwidth]{LTSpice/R=1.91k.png}
+	\caption{Fig 27. $R=1.935k\Omega$ : Period-3 window}
+\end{figure}
+%R=1.90k
+\subsubsection*{\romannum{8}. $R=1.90k\Omega$}
+Rossler-type attractor of bifurcation sequence.
+\begin{figure}[H] %1.90k
+	\centering
+	\includegraphics[width=\textwidth]{LTSpice/R=1.90k.png}
+	\caption{Fig 28. $R=1.90k\Omega$ : Rossler-type attractor}
+\end{figure}
+%R=1.88k
+\subsubsection*{\romannum{9}. $R=1.88k\Omega$}
+Double Scroll attractor of bifurcation sequence.
+\begin{figure}[H] %1.88k
+	\centering
+	\includegraphics[width=\textwidth]{LTSpice/R=1.88k.png}
+	\caption{Fig 29. $R=1.88k\Omega$ : Double Scroll attractor}
+\end{figure}
+%R=1.80k
+\subsubsection*{\romannum{10}. $R=1.80k\Omega$}
+Double Scroll attractor, reducing in size.
+\begin{figure}[H] %1.80k
+	\centering
+	\includegraphics[width=\textwidth]{LTSpice/R=1.80k.png}
+	\caption{Fig 30. $R=1.80k\Omega$ : Double Scroll attractor}
+\end{figure}
+%R=1.70k
+\subsubsection*{\romannum{11}. $R=1.70k\Omega$}
+Double Scroll attractor, reducing in size.
+\begin{figure}[H] %1.70k
+	\centering
+	\includegraphics[width=\textwidth]{LTSpice/R=1.70k.png}
+	\caption{Fig 31. $R=1.70k\Omega$ : Double Scroll attractor}
+\end{figure}
+%R=1.60k
+\subsubsection*{\romannum{12}. $R=1.60k\Omega$}
+Double Scroll attractor, reducing in size.
+\begin{figure}[H] %1.60k
+	\centering
+	\includegraphics[width=\textwidth]{LTSpice/R=1.60k.png}
+	\caption{Fig 32. $R=1.60k\Omega$ : Double Scroll attractor}
+\end{figure}
+%R=1.50k
+\subsubsection*{\romannum{13}. $R=1.50k\Omega$}
+Double Scroll attractor, reducing in size.
+\begin{figure}[H] %1.50k
+	\centering
+	\includegraphics[width=\textwidth]{LTSpice/R=1.50k.png}
+	\caption{Fig 33. $R=1.50k\Omega$ : Double Scroll attractor}
+\end{figure}
+%R=1.48k
+\subsubsection*{\romannum{10}. $R=1.48k\Omega$}
+Limit cycle of the birfurcation sequence.
+\begin{figure}[H] %1.48k
+	\centering
+	\includegraphics[width=\textwidth]{LTSpice/R=1.48k.png}
+	\caption{Fig 34. $R=1.48k\Omega$ : Limit Cycle}
+\end{figure}
+
+
+
+
+
 
 
 
