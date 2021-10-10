@@ -173,8 +173,9 @@ citecolor=blue,
 \newpage
 \pagenumbering{arabic}
 \begin{center}
+	\doublespacing
 	\textbf{\Large Abstract} \linebreak
-	\blindtext[0]
+	Chua's Circuit is one of the simplest method to implement chaotic behavior in an electrical circuit. In this experiment, first the coupled differential equations of the Chua circuit was solved numerically using 4th order Runge Kutta. The Chua Circuit was physically implemented using LTSpice Software. The various bifurcations and attractors exhibited by the circuit was observed by the plotting function of LTSpice. Lastly, the inductor in the Chua Circuit was replaced using op-amps, to implement an inductorless Chua Circuit. All I-V and Chua circuit graphs were obtained using LTSpice.
 \end{center}
 \rule{17cm}{1pt}
 
@@ -934,13 +935,192 @@ Double Scroll attractor, reducing in size.
 	\caption{Fig 33. $R=1.50k\Omega$ : Double Scroll attractor}
 \end{figure}
 %R=1.48k
-\subsubsection*{\romannum{10}. $R=1.48k\Omega$}
+\subsubsection*{\romannum{14}. $R=1.48k\Omega$}
 Limit cycle of the birfurcation sequence.
 \begin{figure}[H] %1.48k
 	\centering
 	\includegraphics[width=\textwidth]{LTSpice/R=1.48k.png}
 	\caption{Fig 34. $R=1.48k\Omega$ : Limit Cycle}
 \end{figure}
+Thus, we have obtained the entire bifurcation sequence of chua circuit starting from period-1 for $R=1.96k\Omega$ to limit cycle for $R=1.48k\Omega$. We can observe that unlike the simulation in Fig 5(n),(o),(p) the value of voltages does not shoot to arbitrarily large values. This is because we are dealing with a physically viable system which is eventually passive, as can be seen from the I-V Characteristics of Non-Linear resistor in Fig 19. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%section 6 - Inductorless Chua
+\section{Inductorless Chua Circuit}
+The inductor in Chua's Circuit is to produce oscillations in the circuit with the capacitance $C_2$. We can remove the inductor by using op-amps to mimic the behaviour of an inductor.
+%%
+%subsection 6.1 - Drawbacks of inductors
+\subsection{Drawbacks of Inductors}
+Even though inductors are very useful circuit elements, there are some disadvantages associated with them. 
+\begin{enumerate}[i.]
+	\item They are bigger and heavier than capacitors.
+	\item As they store energy in form of magnetic fields, anytime a current passes through an inductor, a magnetic field is produced surrounding the wire.
+	\item If we wish to have inductors store greater amount of energy, we need to have more coils, which in turn increases the amount of magnetic field produced. This may interact with other circuit elements.
+	\item If there are two or more inductors in the circuit, their magnetic fields may interact with each other. So, multiple inductors, if used, must be shielded from each other. 
+	\item It is not easy to obtain inductors of any desired value. They are available in limited ranges.
+\end{enumerate}
+Thus, we would like to replace the inductor in the Chua Circuit with something that mimics the behaviour of an inductor.
+%%
+%subsection 6.2 - Op-Amps as Inductors
+\subsection{Op-Amps as Inductors}
+We can use op-amps to build synthetic inductors because op-amps can act as impedance converters, i.e., they can convert capacitances to inductors and vice versa. \linebreak
+
+We can implement an inductor using op-amps as follows :
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.35\textwidth]{Images/fig35_opamp inductor.png}
+	\caption{Fig 35. Inductor using Op-Amps}
+\end{figure}
+Here we can demand that $R_{10}$ is a variable resistor which allows us to define the value of the inductor we want to implement. \linebreak
+
+The above circuit behaves as an inductor of value $L$ given as :
+\begin{equation}
+	L=\dfrac{R_7 R_9 R_{10} C}{R_8} \label{eq:31}
+\end{equation}
+%%
+%subsection 6.3 - Implementing Inductorless Chua using LTSPice
+\subsection{Implementing Inductorless Chua Circuit with LTSpice}
+Inductorless Chua Circuit is implemented in LTSpice by replacing the $L$ in the original Chua Circuit with the circuit in Fig 35. \linebreak
+All the op-amps used are TL082. \linebreak
+The values of the components used for making the inductor :
+\begin{align*}
+	R_7&= 100\Omega \\
+	R_8&=1.0k\Omega \\
+	R_9&=1.0k\Omega \\
+	R_{10}&=1.8k\Omega \\
+	C&=100nF
+\end{align*}
+This gives us value of $L$ from (\myref{eq:31}) as :
+\[ L=18mH \]
+It is the same value of L as we used in our original Chua Circuit. 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{LTSpice/inductorless_chua.png}
+	\caption{Fig 36. Inductorless Chua Circuit}
+\end{figure}
+The circuit is once again run in Transient mode. It runs for 0.1sec with maximum timestep being 1E-05sec. The data starts getting recorded at startup. \linebreak
+
+To obtain the characteritics, we will plot voltage across capacitance 1 ($v_{C1}$) in x-axis vs voltage across capacitance 2 ($v_{C2}$) in y-axis. In the LTSpice circuit :
+\begin{align*}
+	v_{C1} &\equiv \text{V(n002)} \\
+	v_{C2} &\equiv \text{V(n001)}
+\end{align*}
+We will vary values of $R$ from $2.2k\Omega$ to $1.48k\Omega$ and see if we obtain similar characteristics. \linebreak
+If our implementation of the inductor is correct we should obtain similar graphs.
+%R=2.2k
+\subsubsection*{\romannum{1}. $R=2.2k\Omega$}
+\begin{figure}[H] %2.2k
+	\centering
+	\includegraphics[width=\textwidth]{LTSpice/inductorless R=2.2k.png}
+	\caption{Fig 37. $R=2.2k\Omega$}
+\end{figure}
+%R=2.1k
+\subsubsection*{\romannum{2}. $R=2.1k\Omega$}
+Period-0 of birfurcation sequence.
+\begin{figure}[H] %2.1k
+	\centering 
+	\includegraphics[width=\textwidth]{LTSpice/inductorless R=2.1k.png}
+	\caption{Fig 38. $R=2.1k\Omega$ : Period-0}
+\end{figure}
+%R=1.96k
+\subsubsection*{\romannum{3}. $R=1.96k\Omega$}
+Period-1 of bifurcation sequence.
+\begin{figure}[H] %1.96k
+	\centering
+	\includegraphics[width=\textwidth]{LTSpice/inductorless R=1.96k.png}
+	\caption{Fig 39. $R=1.96k\Omega$ : Period-1}
+\end{figure}
+%R=1.94k
+\subsubsection*{\romannum{4}. $R=1.94k\Omega$}
+Period-2 of bifurcation sequence.
+\begin{figure}[H] %1.94k
+	\centering
+	\includegraphics[width=\textwidth]{LTSpice/inductorless R=1.94k.png}
+	\caption{Fig 40. $R=1.94k\Omega$ : Period-2}
+\end{figure}
+%R=1.93k
+\subsubsection*{\romannum{5}. $R=1.93k\Omega$}
+Period-4 of bifurcation sequence.
+\begin{figure}[H] %1.93k
+	\centering
+	\includegraphics[width=\textwidth]{LTSpice/inductorless R=1.93k.png}
+	\caption{Fig 41. $R=1.93k\Omega$ : Period-4}
+\end{figure}
+%R=1.91k
+\subsubsection*{\romannum{6}. $R=1.91k\Omega$}
+Rossler-type attractor of bifurcation sequence.
+\begin{figure}[H] %1.91k
+	\centering
+	\includegraphics[width=\textwidth]{LTSpice/inductorless R=1.91k.png}
+	\caption{Fig 42. $R=1.91k\Omega$ : Rossler-type attractor}
+\end{figure}
+%R=1.89k
+\subsubsection*{\romannum{7}. $R=1.89k\Omega$}
+Double Scroll attractor of bifurcation sequence.
+\begin{figure}[H] %1.89k
+	\centering
+	\includegraphics[width=\textwidth]{LTSpice/inductorless R=1.89k.png}
+	\caption{Fig 43. $R=1.89k\Omega$ : Double Scroll attractor}
+\end{figure}
+%R=1.80k
+\subsubsection*{\romannum{8}. $R=1.80k\Omega$}
+Double Scroll attractor, reducing in size.
+\begin{figure}[H] %1.80k
+	\centering
+	\includegraphics[width=\textwidth]{LTSpice/inductorless R=1.80k.png}
+	\caption{Fig 44. $R=1.80k\Omega$ : Double Scroll attractor}
+\end{figure}
+%R=1.70k
+\subsubsection*{\romannum{9}. $R=1.70k\Omega$}
+Double Scroll attractor, reducing in size.
+\begin{figure}[H] %1.70k
+	\centering
+	\includegraphics[width=\textwidth]{LTSpice/inductorless R=1.70k.png}
+	\caption{Fig 45. $R=1.70k\Omega$ : Double Scroll attractor}
+\end{figure}
+%R=1.60k
+\subsubsection*{\romannum{10}. $R=1.60k\Omega$}
+Double Scroll attractor, reducing in size.
+\begin{figure}[H] %1.60k
+	\centering
+	\includegraphics[width=\textwidth]{LTSpice/inductorless R=1.60k.png}
+	\caption{Fig 46. $R=1.60k\Omega$ : Double Scroll attractor}
+\end{figure}
+%R=1.50k
+\subsubsection*{\romannum{11}. $R=1.50k\Omega$}
+Double Scroll attractor, reducing in size.
+\begin{figure}[H] %1.50k
+	\centering
+	\includegraphics[width=\textwidth]{LTSpice/inductorless R=1.50k.png}
+	\caption{Fig 47. $R=1.50k\Omega$ : Double Scroll attractor}
+\end{figure}
+%R=1.48k
+\subsubsection*{\romannum{12}. $R=1.48k\Omega$}
+Limit cycle of the birfurcation sequence.
+\begin{figure}[H] %1.48k
+	\centering
+	\includegraphics[width=\textwidth]{LTSpice/inductorless R=1.48k.png}
+	\caption{Fig 48. $R=1.48k\Omega$ : Limit Cycle}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%section 7 - Conclusion
+\section{Summary and Conclusion}
+Chua's circuit is one of the simplest method to observe chaos in a physical system. It consists of an inductor, two capacitors, a resistor and a non-linear resistor. 
+\linebreak
+
+The state equations of Chua Circuit is a set of three coupled differential equations given in (\myref{eq:1}), (\myref{eq:2}) and (\myref{eq:3}). The equations are solved using RK4 method for different values of $R$ and the results are plotted in Fig 5. It is observed that the results obtained are not physically viable as the non-linear characteristics used is not eventually passive. But nevertheless it still indicates that the Chua Circuit has the potential to show chaotic behaviour.\linebreak
+
+To physically implement the Chua Circuit, first linear negative resistances are characterised theoretically using op-amps as Voltage Controlled Voltage Sources (VCVS). To obtain the non-linear resistance used in Chua's circuit, two negative resistances are joined in parallel. This gives us the required five-segment piecewise linear characteristics of the non-linear resistance. \linebreak
+
+The circuits are physically implemented using LTSpice software. Each negative resistance $(N_{R_1}$ and $N_{R_2}$) is implemented and their I-V characteristics is obtained. Similarly non-linear resistance is obtained parallely joining $N_{R_1}$ and $N_{R_1}$. All I-V characteristics are obtained using a small current-sensing resistance $R=100\Omega$. The obtained I-V characteristics of all ($N_{R_1}$, $N_{R_2}$ and $N_{R}$) matches the expected I-V characteristics. So our implementation is successful. $E_{sat}$ is measured to be $\pm 7.48V$. Breakpoints and slopes are calculated using the same. \linebreak
+
+Finally Chua Circuit is also implemented using LTSpice and the value of $R$ is varied to obtain different graphs in the bifurcation sequence. Period-0 is obtained at $R=2.2k\Omega$, Period-1 at $R=1.96k\Omega$, Period-2 at $R=1.935k\Omega$, Period-4 at $R=1.927k\Omega$, Period-3 window at $R=1.91k\Omega$ and Rossler type attractor at $R=1.90k\Omega$, with sizes in decreasing order. Double scroll attractor first forms at $R=1.88k\Omega$ and as value of $R$ is decreased, the size of the double scroll is decreased. At $R=1.48k\Omega$, the limit cycle is reached and the double scroll vanishes. \linebreak
+
+Inductorless Chua Circuit is also implemented using LTSpice. The inductor was replaced by op-amps, resistors and capacitors as shown in Fig 35. In the circuit, $R_{10}$ is kept as a variable resistor to control the value of inductance generated. While physically implementing the circuit, the circuit elements are so defined that $R_{10}=1.8k\Omega$ generated inductance $L=18mH$. The attractors of Inductorless Chua circuit are obtained at almost identical values of $R$. Thus, we can say our op-amp, resistor and capcitance sub-circuit behaves very closely to an actual 18mH inductor. The implementation can be considered successful.
+
+
+
+
 
 
 
