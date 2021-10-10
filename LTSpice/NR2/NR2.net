@@ -1,0 +1,16 @@
+* C:\users\ashmita\Desktop\ASHMITA\APanda_Lib_LTSpice\NR2\NR2.asc
+XU1 N001 N005 N003 N004 N002 TL082
+R4 N002 N001 22k tol=5
+R5 N002 N005 22k tol=5
+R6 N005 0 3.3k tol=5
+V2 0 N004 9V
+V1 N003 0 9V
+V3 N001 N006 V
+R 0 N006 100 tol=5
+* NR2
+* VR
+* Variable DC Voltage
+.dc V3 -8V 8V 100mV
+.lib TL082.sub
+.backanno
+.end
