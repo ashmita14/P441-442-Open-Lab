@@ -746,22 +746,53 @@ $R$ is varied from $2.0k\Omega$ to $1.2k\Omega$ to observe the various stages of
 \subsection{Negative Resistances}
 First the negative resistances are individually implemented in LTSpice to ensure they function as we theoretically expect them to. The saturation voltage ($E_{sat}$) for TL082 and breakpoints for both resistors is also obtained. \linebreak
 
-To measure the output voltage, a small resistance of value $R=10\Omega$ is put in series and the current across is plotted vs the input voltage.
+To measure the current through the non-linear resistor, a small resistance of value $R=100\Omega$ is put in series. The I-V graph of non-linear resistor is obtained on plotting input voltage and current measured across $R$. 
 %
 %subsubsection 5.2.1 - N_{R_1}
 \subsubsection{N\textsubscript{R1}}
+$N_{R_1}$ was implemented using LTSpice. $V_3$ is a variable DC voltage source and $R$ is a small current-sensing resistance.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{LTSpice/NR1_circuit.png}
+	\caption{Fig 14. $N_{R_1}$ circuit}
+\end{figure}
+The corresponding I-V Graph is obtained on running the circuit in DC Sweep mode from -10V to 10V with intervals of 100mV. The saturation volatge $E_{sat}$ is observed to be $\pm 7.48V$.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{LTSpice/NR1_plot.png}
+	\caption{Fig 15. I-V Characteristics of $N_{R_1}$}
+\end{figure}
 
-The values of slopes for $N_{R_1}$ are obtained from (\myref{eq:28}) as :
+The values of slopes and breakpoints for $N_{R_1}$ are obtained from (\myref{eq:28}) as :
 \begin{align*}
+	E_{sat}&=\pm 7.48V \\
 	m_{01}&=4.545\times 10^{-3} S = 4.545 mS \\ 
-	m_{11}&= -4.545\times 10^{-4} S = -0.4545 mS 
+	m_{11}&= -4.545\times 10^{-4} S = -0.4545 mS \\
+	B_{P1}&= \pm 6.8V 
 \end{align*}
-The values of sloped for $N_{R_2}$ are obtained from (\myref{eq:29}) as :
+%
+%subsubsection 5.2.1 - N_{R_1}
+\subsubsection{N\textsubscript{R2}}
+$N_{R_2}$ was implemented using LTSpice. $V_3$ is a variable DC voltage source and $R$ is a small current-sensing resistance. \linebreak
+
+The corresponding I-V Graph is obtained on running the circuit in DC Sweep mode from -8V to 8V with intervals of 100mV. The saturation volatge $E_{sat}$ is observed to be $\pm 7.48V$.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{LTSpice/NR2_circuit.png}
+	\caption{Fig 16. $N_{R_2}$ circuit}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{LTSpice/NR2_plot.png}
+	\caption{Fig 17. I-V Characteristics of $N_{R_2}$}
+\end{figure}
+The values of slopes and breakpoints for $N_{R_2}$ are obtained from (\myref{eq:29}) as :
 \begin{align*}
+	E_{sat}&= \pm 7.48V \\
 	m_{02}&=4.545\times 10^{-5}S = 0.04545 mS \\
-	m_{12}&=-0.303\times 10^{-3}S = -0.303 mS
+	m_{12}&=-0.303\times 10^{-3}S = -0.303 mS \\
+	B_{P2}&= \pm 0.976V
 \end{align*}
-So the value of sloped for the 
 
 
 
