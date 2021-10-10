@@ -148,7 +148,7 @@ citecolor=blue,
 		\textit{Submitted By} \linebreak \textbf{ASHMITA PANDA} \linebreak 
 		\textbf{ROLL NO. 1811042} \linebreak
 		School of Physical Sciences \linebreak National Institute of Science, Education and Research (NISER), Bhubaneswar \linebreak
-		Date of Submission : 24\textsuperscript{th} September, 2021
+		Date of Submission : 10\textsuperscript{th} October, 2021
 		\vspace{2.5cm} \linebreak
 		\textit{Under the Guidance of} \linebreak \textbf{Dr. Pratap Kumar Sahoo} \linebreak Associate Professor \linebreak School of Physical Sciences \linebreak National Institute of Science Education and Research (NISER), Bhubaneswar
 		\vspace{1cm} \linebreak
@@ -358,7 +358,7 @@ Thus, we do obtain a double scroll attractor for the Chua Circuit. In principle,
 Now, we will attempt to use constants which represent actual dimensionful values and try to observe how the graph changes when we change the value of resistance $R$. \linebreak
 
 We will define conversion factors to relate the value of our constants to values of actual electronic circuit components. Current will be measured in Amperes(A), potential differences in Volts(V), capacitances in Farads(F), inductance in Henry(H) and resistance in Ohm($\Omega$). Resistivity is expressed in Siemens(S)\linebreak
-If we want currents of milliamperes to be in the circuit, we will adjust all current values by 1000. It will thus increase resistances and inductance by 1000, while decreasing capacitances by the same factor. Also, we can also rescale the values of time by some factor k in (\myref{eq:3}). This will leave all resistances unaffected, and all capacitors and inductors will be scaled by same factor k. For ease of using values in the code, I have chosen k to be $10^{-4}$, i.e., I rescale all capacitances and inductances by $10^{-4}$. This gives us the final conversion factors as :
+If we want currents of milliamperes to be in the circuit, we will adjust all current values by 1000. It will thus increase resistances and inductance by 1000, while decreasing capacitances by the same factor. Also, we can also rescale the values of time by some factor k in (\myref{eq:3}). This will leave all resistances unaffected, and all capacitors and inductors will be scaled by same factor k. For ease of using values in the code, k is chosen to be $10^{-4}$, i.e., all capacitances and inductances are rescaled by $10^{-4}$. This gives us the final conversion factors as :
 \begin{align*}
 	R & : 1 \equiv 1000 \Omega = 1k\Omega \\
 	C_1, C_2 & : 1 \equiv 10^{-7} F = 100 nF \\
@@ -489,7 +489,7 @@ In our current equation (\myref{eq:4}) and graph of g(v), we see that the condit
 %%
 %subsection 4.1 - Negative Resistance
 \subsection{Negative Resistance}
-To implement a Chua Circuit practically we first need to construct a negative resistance which follows the characteristics of $g(v)$ graph. One way to construct a negative resistance is to connect three positive linear resistors to a voltage controlled voltage source (VCVS).
+To implement a Chua Circuit practically we first need to construct negative resistances which when put together, follows the characteristics of $g(v)$ graph. One way to construct a negative resistance is to connect three positive linear resistors to a voltage controlled voltage source (VCVS).
 %
 %subsubsection 4.1.1-VCVS
 \subsubsection{Voltage Controlled Voltage Source}
@@ -533,7 +533,7 @@ Applying KVL along loop 1-2-3-0 (in Fig 7):
 \end{align}
 Using (\myref{eq:11}) in (\myref{eq:10}) :
 \begin{align}
-	v&=v_d + \dfrac{v R_3 v_d}{R_2+R_3} = \dfrac{R_2+(1+A)R_3}{R_2+R_3}v_d \nonumber \\
+	v&=v_d + \dfrac{A R_3 v_d}{R_2+R_3} = \dfrac{R_2+(1+A)R_3}{R_2+R_3}v_d \nonumber \\
 	\intertext{Now, using (\myref{eq:8}) in the above equation : }
 	\therefore v&= \left\{ \dfrac{R_2+(1+A)R_3}{A(R_2+R_3)} \right\}v_o \label{eq:12}
 \end{align}
@@ -558,11 +558,11 @@ We can now set $R_1=R_2$, and we obtain :
 \begin{equation}
 	i=-\dfrac{1}{R_3}v \label{eq:14}
 \end{equation}
-Thus it now appears that the segment $N_R$ (in Fig 7) now has negative resistance $-R_3$. 
+Thus it appears that the segment $N_R$ (in Fig 7) now has negative resistance $-R_3$. 
 %
 %subsubsecrion 4.1.3 - opamps as VCVS
 \subsubsection{Op-Amps as VCVS}
-An opamp is the practical or real-life approximation of a VCVS. The voltage applied across inverting and non-inverting terminals produces voltage at output terminal, if we take the reference terminal to be ground.
+An op-amp is the practical or real-life approximation of a VCVS. The voltage applied across inverting and non-inverting terminals produces voltage at output terminal, if we take the reference terminal to be ground.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.6\textwidth]{Images/fig8_opamp as vcvs.png}
@@ -635,7 +635,7 @@ Slope of the graph is given as :
 	m_o=\dfrac{1}{R_1} \label{eq:21}
 \end{equation}
 \textbf{\uline{Negative Saturation}} \linebreak %negative saturation
-In negative saturation, $v_o=-E_{sat}$. As all other equations remain same, we have the breakspoint as :
+In negative saturation, $v_o=-E_{sat}$. As all other equations remain same, we have the breakpoint as :
 \begin{equation}
 	B^-_P = - \dfrac{R_2+(1+A)R_3}{A(R_2+R_3)}E_{sat} \label{eq:22}
 \end{equation}
@@ -720,9 +720,9 @@ The expected I-V graph of non-linear resistance is as follows :
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %section 5 - Practical Implementation using LTSpice
 \section{Practical Implementation with LTSpice}
-LTSpice was used to practically implement the Chua Ciruit. The circuit design is used from the paper by Kennedy[{\color{red}{put ref}}] (Fig 101. \linebreak
+LTSpice was used to practically implement the Chua Ciruit. The circuit design is used from the paper by Kennedy[1] (Fig 101. \linebreak
 
-All op-amps used are TL082, which was downloaded as a third-party tool from the website \url{http://www.chaotic-circuits.com/simulating-electronic-circuits/} and implemented into the circuit.\linebreak
+All op-amps used are TL082, which are downloaded as a third-party tool from the website \url{http://www.chaotic-circuits.com/simulating-electronic-circuits/}[3] and implemented into the circuit.\linebreak
 %%
 %subsection 5.1 - Component Values
 \subsection{Setting Component Values}
@@ -740,9 +740,9 @@ All op-amps used are TL082, which was downloaded as a third-party tool from the 
 	C_1 &= 10nF \pm 5\% \\
 	C_2 &= 100nF \pm 5\% \\
 	L &= 18mH \pm 10\% \\
-	R &= 2.2k\Omega \text{ to } 1.2k\Omega 
+	R &= 2.2k\Omega \text{ to } 1.48k\Omega 
 \end{align*}
-$R$ is varied from $2.2k\Omega$ to $1.2k\Omega$ to observe the various stages of the bifurcation sequence. 
+$R$ is varied from $2.2k\Omega$ to $1.48k\Omega$ to observe the various stages of the bifurcation sequence. 
 %%
 %subsection 5.2 - Negative Resistance
 \subsection{Negative Resistances}
@@ -812,8 +812,8 @@ To obtain the corresponding I-V graph, the circuit is run using DC Sweep mode fr
 \end{figure}
 The slope of the graph can be calculated from (\myref{eq:30}) :
 \begin{align*}
-	m_0=m_{11}+m_{02}=-0.4545+0.04545 =-0.4905 mS \\
-	m_1=m_{11}+m_{12}=-0.4545-0.303= -0.7575mS
+	m_0&=m_{11}+m_{02}=-0.4545+0.04545 =-0.4905 mS \\
+	m_1&=m_{11}+m_{12}=-0.4545-0.303= -0.7575mS
 \end{align*}
 %%
 %subsection 5.4 - Chua Circuit
@@ -946,7 +946,7 @@ Thus, we have obtained the entire bifurcation sequence of chua circuit starting 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %section 6 - Inductorless Chua
 \section{Inductorless Chua Circuit}
-The inductor in Chua's Circuit is to produce oscillations in the circuit with the capacitance $C_2$. We can remove the inductor by using op-amps to mimic the behaviour of an inductor.
+The inductor in Chua's Circuit produces oscillations in the circuit with the capacitance $C_2$. We can remove the inductor by using op-amps such that they mimic the behaviour of an inductor.
 %%
 %subsection 6.1 - Drawbacks of inductors
 \subsection{Drawbacks of Inductors}
@@ -954,7 +954,7 @@ Even though inductors are very useful circuit elements, there are some disadvant
 \begin{enumerate}[i.]
 	\item They are bigger and heavier than capacitors.
 	\item As they store energy in form of magnetic fields, anytime a current passes through an inductor, a magnetic field is produced surrounding the wire.
-	\item If we wish to have inductors store greater amount of energy, we need to have more coils, which in turn increases the amount of magnetic field produced. This may interact with other circuit elements.
+	\item If we wish to have inductors store greater amount of energy, we need to have greater number of coils, which in turn increases the amount of magnetic field produced. This may interact with other circuit elements.
 	\item If there are two or more inductors in the circuit, their magnetic fields may interact with each other. So, multiple inductors, if used, must be shielded from each other. 
 	\item It is not easy to obtain inductors of any desired value. They are available in limited ranges.
 \end{enumerate}
@@ -1112,21 +1112,17 @@ The state equations of Chua Circuit is a set of three coupled differential equat
 
 To physically implement the Chua Circuit, first linear negative resistances are characterised theoretically using op-amps as Voltage Controlled Voltage Sources (VCVS). To obtain the non-linear resistance used in Chua's circuit, two negative resistances are joined in parallel. This gives us the required five-segment piecewise linear characteristics of the non-linear resistance. \linebreak
 
-The circuits are physically implemented using LTSpice software. Each negative resistance $(N_{R_1}$ and $N_{R_2}$) is implemented and their I-V characteristics is obtained. Similarly non-linear resistance is obtained parallely joining $N_{R_1}$ and $N_{R_1}$. All I-V characteristics are obtained using a small current-sensing resistance $R=100\Omega$. The obtained I-V characteristics of all ($N_{R_1}$, $N_{R_2}$ and $N_{R}$) matches the expected I-V characteristics. So our implementation is successful. $E_{sat}$ is measured to be $\pm 7.48V$. Breakpoints and slopes are calculated using the same. \linebreak
+The circuits are physically implemented using LTSpice software. Each negative resistance $(N_{R_1}$ and $N_{R_2}$) is implemented and their I-V characteristics is obtained. Similarly non-linear resistance is obtained parallely joining $N_{R_1}$ and $N_{R_1}$. All I-V characteristics are obtained using a small current-sensing resistance $R=100\Omega$. The obtained I-V characteristics of all resistances ($N_{R_1}$, $N_{R_2}$ and $N_{R}$) matches the expected I-V characteristics. So our implementation is successful. $E_{sat}$ is measured to be $\pm 7.48V$. Breakpoints and slopes are calculated using the same. \linebreak
 
-Finally Chua Circuit is also implemented using LTSpice and the value of $R$ is varied to obtain different graphs in the bifurcation sequence. Period-0 is obtained at $R=2.2k\Omega$, Period-1 at $R=1.96k\Omega$, Period-2 at $R=1.935k\Omega$, Period-4 at $R=1.927k\Omega$, Period-3 window at $R=1.91k\Omega$ and Rossler type attractor at $R=1.90k\Omega$, with sizes in decreasing order. Double scroll attractor first forms at $R=1.88k\Omega$ and as value of $R$ is decreased, the size of the double scroll is decreased. At $R=1.48k\Omega$, the limit cycle is reached and the double scroll vanishes. \linebreak
+Finally Chua Circuit is also implemented using LTSpice and the value of $R$ is varied to obtain different graphs in the bifurcation sequence. Period-0 is obtained at $R=2.2k\Omega$, Period-1 at $R=1.96k\Omega$, Period-2 at $R=1.935k\Omega$, Period-4 at $R=1.927k\Omega$, Period-3 window at $R=1.91k\Omega$ and Rossler type attractor at $R=1.90k\Omega$, with sizes in decreasing order. Double scroll attractor first forms at $R=1.88k\Omega$ and as value of $R$ is decreased, the size of the double scroll decreases. At $R=1.48k\Omega$, the limit cycle is reached and the double scroll vanishes. \linebreak
 
-Inductorless Chua Circuit is also implemented using LTSpice. The inductor was replaced by op-amps, resistors and capacitors as shown in Fig 35. In the circuit, $R_{10}$ is kept as a variable resistor to control the value of inductance generated. While physically implementing the circuit, the circuit elements are so defined that $R_{10}=1.8k\Omega$ generated inductance $L=18mH$. The attractors of Inductorless Chua circuit are obtained at almost identical values of $R$. Thus, we can say our op-amp, resistor and capcitance sub-circuit behaves very closely to an actual 18mH inductor. The implementation can be considered successful.
-
-
+Inductorless Chua Circuit is also implemented using LTSpice. The inductor was replaced by op-amps as shown in Fig 35. In the circuit, $R_{10}$ is kept as a variable resistor to control the value of inductance generated. While physically implementing the circuit, the circuit elements are so defined that $R_{10}=1.8k\Omega$ generates inductance $L=18mH$. The attractors of Inductorless Chua circuit are obtained at almost identical values of $R$ of the original circuit. Thus, we can say our implementation is successful.
 
 
-
-
-
-
-
-
+%%%%%%%%%%%%%%%%%%%%%%% References %%%%%%%%%%%%%%%%%%%%%%
+\nocite{*}
+\bibliographystyle{ieeetr}
+\bibliography{Ref}
 
 
 
