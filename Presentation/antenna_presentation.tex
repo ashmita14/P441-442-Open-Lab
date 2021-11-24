@@ -1,0 +1,124 @@
+\documentclass[12pt]{beamer}
+\usepackage{multicol} %multicolumns
+\usepackage{siunitx} %log table stuff
+\usepackage{flafter}
+\usepackage{amsmath} %math stuff
+\usepackage{amssymb} %math symbols
+\usepackage{graphicx} %including photos
+\usepackage{wrapfig} %for wrapping figure
+%\graphicspath{{./Report For Titanium Doping/}} %path of folder from where photo needs to be extracted, NOT NECESSARY AT ALL TIMES
+\usepackage[utf8]{inputenc}
+\usepackage{float} %Using [H] command to stop picturefloating around
+\usepackage{enumerate} %changing labels of lists
+\usepackage{fancyhdr}
+\usepackage{dsfont} %for set notations and other fancy letters
+\usepackage{mathrsfs}
+\usepackage[compat=1.1.0]{tikz-feynman}
+
+%\usepackage{geometry}
+%\geometry{
+%a4paper,
+%total={170mm,257mm},
+%top=20mm,
+%}
+\usepackage{array}
+\setlength\extrarowheight{4pt}
+%\usepackage[dvipsnames]{xcolor} %for using coloured text
+\usepackage{longtable,pdflscape,booktabs} % long table stuff
+\usepackage{lscape} 
+\usepackage{caption}
+\captionsetup{labelformat=empty}
+\usepackage{setspace} %for desired spacing between lines
+\usepackage{blindtext} % for blind text in contents page
+\usepackage[normalem]{ulem} %dash and dotted underline
+\usepackage{bm} % for bold math symbols- using command \boldsymbol
+\usepackage{mathtools} %for rcases
+\usepackage{hyperref} %for hyperlinks
+\usepackage{romannum} %for Roman Numerals
+\usepackage[makeroom]{cancel} % for striked out or other stuff in math environment
+\usepackage{tikz}
+\usepackage{empheq} %  fancy math stuff
+\usepackage{xfrac}
+\usepackage{fancybox} %for fancy boxes
+
+
+\allowdisplaybreaks
+\colorlet{linkequation}{blue} %making coloured equation refernces
+
+\usetikzlibrary{shadows} %defines shadows
+\usepackage[framemethod=tikz]{mdframed}
+\usepackage{tcolorbox} %coloured boxes
+
+\tikzset{rndblock/.style={rounded corners,rectangle,draw,outer sep=1pt,inner sep=5pt,line width=1pt}}
+
+% Command Definition
+% 1 optional to customize the aspect, 2 mandatory: text to be framed
+\newcommand{\mybox}[2][]{\tikz[baseline=(h.base)]\node[rndblock,#1] (h) {#2};}
+
+%definining new command to make coloured equation references
+\newcommand*{\myref}[1]{%
+  \begingroup
+    \hypersetup{
+      linkcolor=linkequation,
+      linkbordercolor=linkequation,
+    }%
+    \ref{#1}%
+  \endgroup
+}
+
+%Setting equations a particular colour
+\hypersetup{
+colorlinks=true,
+linkcolor=black,
+filecolor=magenta,
+urlcolor=Black,
+citecolor=blue,
+}
+
+\parskip 1ex
+
+%For circled numbers
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+            \node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+            
+%command for making capital roman numerals
+%\newcommand{\RomanNum}[1]{\MakeUppercase{\romannumeral #1}}
+
+%%%%%%%%%%% FOR PRESENTATIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{beamerthemesplit}
+\usetheme{Warsaw}
+\usecolortheme{orchid}
+\setbeamertemplate{headline}{}
+\setbeamercolor*{section in sidebar}{bg=white}
+\setbeamercolor*{subsection in sidebar}{fg=black,bg=pink}
+
+\AtBeginSection[]{    
+    \begin{frame}{Outline}
+    \footnotesize{\tableofcontents[currentsection,hideothersubsections]}
+    \end{frame}
+}
+
+\begin{document}
+%title page
+\begin{frame}
+    \vspace{\fill}
+    \begin{beamercolorbox}[sep=8pt, center,shadow=true, rounded=true]{title}
+        \usebeamerfont{subtitle}
+        Presentation on \linebreak
+        \usebeamerfont{title}
+        Antenna Simulation for 21cm H line
+    \end{beamercolorbox}
+    \begin{center}
+      \footnotesize{
+        Ashmita Panda \linebreak
+        1811042 \linebreak
+        4th Year Integrated M.Sc.\linebreak
+        SPS, NISER \linebreak
+
+        November 25, 2021 \linebreak
+      }
+    \end{center}
+\end{frame}
+
+
+\end{document}
