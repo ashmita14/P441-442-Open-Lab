@@ -1,0 +1,185 @@
+\documentclass[12pt]{article}
+\usepackage{multicol} %multicolumns
+\usepackage{siunitx} %log table stuff
+\usepackage{flafter}
+\usepackage{amsmath} %math stuff
+\usepackage{amssymb} %math symbols
+\usepackage{graphicx} %including photos
+\usepackage{wrapfig} %for wrapping figure
+%\graphicspath{{./Report For Titanium Doping/}} %path of folder from where photo needs to be extracted, NOT NECESSARY AT ALL TIMES
+\usepackage[utf8]{inputenc}
+\usepackage{float} %Using [H] command to stop picturefloating around
+\usepackage{enumerate} %changing labels of lists
+\usepackage{fancyhdr}
+\usepackage{dsfont} %for set notations and other fancy letters
+\usepackage{mathrsfs}
+\usepackage[compat=1.0.0]{tikz-feynman}
+
+\usepackage{geometry}
+\geometry{
+a4paper,
+total={170mm,257mm},
+top=20mm,
+}
+\usepackage{array}
+\setlength\extrarowheight{4pt}
+%\usepackage[dvipsnames]{xcolor} %for using coloured text
+\usepackage{longtable,pdflscape,booktabs} % long table stuff
+\usepackage{lscape} 
+\usepackage{caption}
+\captionsetup{labelformat=empty}
+\captionsetup[subfigure]{labelformat=empty}
+\usepackage{subcaption}
+\usepackage{setspace} %for desired spacing between lines
+\usepackage{blindtext} % for blind text in contents page
+\usepackage[normalem]{ulem} %dash and dotted underline
+\usepackage{bm} % for bold math symbols- using command \boldsymbol
+\usepackage{mathtools} %for rcases
+\usepackage{hyperref} %for hyperlinks
+\usepackage{romannum} %for Roman Numerals
+\usepackage[makeroom]{cancel} % for striked out or other stuff in math environment
+\usepackage{tikz}
+\usepackage{empheq} %  fancy math stuff
+\usepackage{xfrac}
+\usepackage{fancybox} %for fancy boxes
+\usepackage{circuitikz}
+\usepackage{listings}
+
+\allowdisplaybreaks
+\colorlet{linkequation}{blue} %making coloured equation refernces
+
+\usetikzlibrary{shadows} %defines shadows
+\usepackage[framemethod=tikz]{mdframed}
+\usepackage{tcolorbox} %coloured boxes
+
+\tikzset{rndblock/.style={rounded corners,rectangle,draw,outer sep=1pt,inner sep=5pt,line width=1pt}}
+
+% Command Definition
+% 1 optional to customize the aspect, 2 mandatory: text to be framed
+\newcommand{\mybox}[2][]{\tikz[baseline=(h.base)]\node[rndblock,#1] (h) {#2};}
+
+%definining new command to make coloured equation references
+\newcommand*{\myref}[1]{%
+  \begingroup
+    \hypersetup{
+      linkcolor=linkequation,
+      linkbordercolor=linkequation,
+    }%
+    \ref{#1}%
+  \endgroup
+}
+
+%Setting equations a particular colour
+\hypersetup{
+colorlinks=true,
+linkcolor=black,
+filecolor=magenta,
+urlcolor=blue,
+citecolor=blue,
+}
+
+\parskip 1ex
+
+%For circled numbers
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+            \node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+            
+%command for making capital roman numerals
+\newcommand{\RomanNum}[1]{\MakeUppercase{\romannumeral #1}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% DOCUMENT BEGINS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%\pagestyle{fancy}
+%\fancyhf{}
+%\fancyhead[LO]{\rightmark}
+%\fancyhead[RE]{\leftmark}
+
+\usepackage{titlesec, blindtext}
+\titleformat{\section}[hang]{\Huge\bfseries}{\Roman{section}. \hspace{20pt}}{0pt}{\Huge\bfseries}
+
+\titleformat*{\subsection}{\Large\bfseries}
+\titleformat*{\subsubsection}{\large\bfseries}
+
+\usepackage{tocloft}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftsecaftersnum}{.}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\doublespace
+%making the title page
+\pagenumbering{gobble}
+\begin{titlepage}
+	\begin{center}
+		\vspace*{0.2cm}
+		\textbf{\uline{P441/P442 - Open Lab Experiment}} \linebreak
+		\vspace{1.5cm}\linebreak
+		\textbf{\Large{ANTENNA SIMULATION}}\linebreak
+		\vspace{2cm} \linebreak
+		\textit{Submitted By} \linebreak \textbf{ASHMITA PANDA} \linebreak 
+		\textbf{ROLL NO. 1811042} \linebreak
+		School of Physical Sciences \linebreak National Institute of Science, Education and Research (NISER), Bhubaneswar \linebreak
+		Date of Submission : 
+		\vspace{2.5cm} \linebreak
+		\textit{Under the Guidance of} \linebreak \textbf{Dr. Pratap Kumar Sahoo} \linebreak Associate Professor \linebreak School of Physical Sciences \linebreak National Institute of Science Education and Research (NISER), Bhubaneswar
+		\vspace{1cm} \linebreak
+
+	\end{center}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.17\textwidth]{niser logo}
+	\end{figure}
+\end{titlepage}
+
+\raggedright
+\newpage
+\pagenumbering{roman}
+
+\singlespacing
+%Table of Contents
+\tableofcontents
+\addtocontents{toc}{~ \hfill \textbf{Page} \par}
+\onehalfspacing
+
+\newpage
+\pagenumbering{arabic}
+\begin{center}
+	\doublespacing
+	\textbf{\Large Abstract} \linebreak
+	\blindtext[1]
+\end{center}
+\rule{17cm}{1pt}
+
+
+
+
+\end{document}
