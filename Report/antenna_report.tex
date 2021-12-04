@@ -426,8 +426,53 @@ We can analyse the above equation directly to look for possible lowest order mod
   \item The TE\textsubscript{m0} and TE\textsubscript{0n} modes exist. Thus the lowest order mode could be either TE\textsubscript{10} or TE\textsubscript{01} mode.
 \end{enumerate}
 \subsubsection{Cut-off Frequency, Dominant Mode and Field Pattern}
+We know from the preceding analysis that :
+\begin{align*}
+  h^2 &= \left( \dfrac{m\pi}{a} \right)^2 + \left( \dfrac{n \pi}{b} \right)^2 \\
+  \beta^2 &= \omega^2 \mu \varepsilon - \left( \dfrac{m\pi}{a} \right)^2 - \left( \dfrac{n \pi}{b} \right)^2
+\end{align*}
+Now for a propagating wave, the frequency should be greater than some critical value for the term $\beta$ to be a real number. If $\beta$ is a complex number, it would mean the EM wave decays exponentially inside the waveguide. \linebreak
 
+At the cut-off frequency of a mode, we have $\beta=0$. \linebreak
+With this, we can find the equation for the cut-off frequency as follows :
+\begin{equation}
+  f_c = \dfrac{1}{2\pi \sqrt{\mu \varepsilon}} \left\{ \left( \dfrac{m\pi}{a} \right)^2+\left( \dfrac{n\pi}{b} \right)^2 \right\}^{1/2} \label{eq:20}
+\end{equation}
+From the above equation (\myref{eq:20}), we can calulate the cutoff frequencies of $TE_{10}$, $TE_{02}$ and $TM_{11}$ modes. We observe that :
+\begin{equation*}
+  f^c_{TE_{10}} < f^c_{TE_{01}} < f^c_{TM_{11}}
+\end{equation*}
+Thus, $TE_{10}$ mode is the lowest order mode of a rectangular waveguide. It has the minimum cutoff frequency. Consequently, it is also the dominant mode of the rectangular waveguide as the probability of a wave being in $TE_{10}$ mode is the greatest. It depends only on the `a' side of the waveguide. \linebreak
 
+In the dominant $TE_{10}$ mode :
+\begin{align*}
+  H_z &= C \cos\left( \dfrac{\pi x}{a} \right)\exp(-j\beta z) \\
+  E_y &= -\dfrac{j \omega \mu}{\left( \pi/a \right)^2}C \left( \dfrac{\pi}{a} \right)\sin\left( \dfrac{\pi x}{a} \right)\exp(-j\beta z) \\
+  H_x &= - \dfrac{j \omega \varepsilon}{\left( \pi/a \right)^2}C\left( \dfrac{\pi}{a} \right)\sin\left( \dfrac{\pi x}{a} \right) \exp(-j\beta z) \\
+  E_x &= 0 \, , \quad H_y =0
+\end{align*}
+The field pattern of electric and magnetic field inside the waveguide depends on which mode is it being operated on. \linebreak
+In the $TE_{10}$ mode, magnetic flux lines appear as continuous loops, and electric field lines occur as sinusodial waves on the x-y plane, which become zero on the $y=0$ and $y=b$ walls.
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\textwidth]{Images/fieldpatterns.jpg}
+  \caption{Fig 6. Field Patterns inside Rectangular Waveguide}
+  \caption{\tiny Source : \url{http://www.engineeringdone.com/te-tm-modes/te-tm-modes/}}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\section -Antenna Parameters
+\section{Antenna Parameters}
+All kinds of antennas can be characterised or studied using certain parameters which have been summarised in this section. 
+%subsection - bandwidth
+\subsection{Bandwidth}
+The bandwidth gives us the frequency range over which an antenna operates. All waveguides have a lower cutoff frequency, $\omega_c$. So for an antenna to function properly, the frequency of the wave must be greater than the cutoff frequency. For optimum transport, the frequency of the wave must in the range of $1.25 \omega_c$ to $1.9\omega_c$. If the frequency is greater than $1.25\omega_c$ then dispersion down the waveguide gets minimised, and if the frequency is lesser than $1.9\omega_c$, then the higher order modes gets suppressed. 
+%subsection - radiation pattern
+\subsection{Radiation Pattern}
+The radiation pattern of an antenna gives us the power radiated by it as a function of $\theta$ and $\phi$, i.e., as a function of direction. \linebreak
+We can classify antennas into three types based on their radiation patterns :
+\begin{enumerate}[i.)]
+  \item \textbf{Isotropic} : Antenna radiates same amount of radiation in all directions.
+  \item \textbf{Omni-directional} : 
+\end{enumerate}
 
 
 
