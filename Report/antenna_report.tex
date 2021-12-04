@@ -471,8 +471,52 @@ The radiation pattern of an antenna gives us the power radiated by it as a funct
 We can classify antennas into three types based on their radiation patterns :
 \begin{enumerate}[i.)]
   \item \textbf{Isotropic} : Antenna radiates same amount of radiation in all directions.
-  \item \textbf{Omni-directional} : 
+  \item \textbf{Omni-directional} : The antenna is isotropic in one plane.
+  \item \textbf{Directional} : There is no symmetry is power radiation of the antenna. It is usually radiates power as a single peak in some direction.
 \end{enumerate}
+%subsection - Field Regions
+\subsection{Field Regions}
+The electromagnetic fields surrounding an antenna could be divided into three regions :
+\begin{enumerate}[i.)]
+  \item \textbf{Far Fields} : These are the fields in the region far away from the antenna. The electric and magnetic fields do not change shape with distance.
+  \item \textbf{Reactive Near Fields} : These are the fields in the immediate vicinity of the antenna. The electric and magnetic fields are out of phase by 90 degrees.
+  \item \textbf{Radiative Near Fields} : These are the fields in the region between far fields and reactive near fields.
+\end{enumerate}
+%subsection - Directivity
+\subsection{Directivity}
+Directivity of an antenna is fundamental parameter. It gives us a measure of how directional the radiation pattern of an antenna is. \linebreak 
+An antenna which radiates equally in all directions, i.e., the isotropic antenna, would have zero directivity.\linebreak
+
+If we write the normalised field pattern of an antenna is written in spherical harmonics as $F(\theta, \phi)$, then the mathematical formula for directivity is given as :
+\begin{equation}
+  D = \left[ \dfrac{1}{4\pi}\int^{2\pi}_0 \int^{\pi}_0 |F(\theta, \phi)|^2 \sin\theta d\theta d\phi \right]^{-1}
+\end{equation}
+%subsection - Gain
+\subsection{Gain}
+The gain of the antenna measures how much power is radiated by the antenna in the peak directivity direction when compared to an isotropic source. \linebreak
+It takes into account the actual losses that might have occurred in the system. Thus, it is often used more to specify the characteristics of an antenna compared to directivity.
+%subsection - Main Lobe, side lobe, Null and HPBW
+\subsection{Lobes and HPBW}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.5\textwidth]{Images/radiation-lobes-of-antenna.jpg}
+  \caption{Fig 7. Radiation Pattern of an Antenna}
+\end{figure}
+\paragraph{Main Lobe} : It is the region around the direction of peak radiation of the antenna, usually the region within 3dB of the peak gain.
+\paragraph{Side Lobes} : These are the smaller beams away from the main beam. These are usually the radiation along undesired directions. 
+\paragraph{Null} : These are the regions along which no power is radiated. 
+\paragraph{HPBW} : Half Power Full Bandwidth is the angular separation in which the power radiated by the antenna decreases by 50\% of the maximum power radiated in the peak direction.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%section - Horn antenna
+\section{Horn Antenna}
+Horn Antenna is one of the most commonly used antenna structures. It consists of a rectangular waveguide which flares out at one end. They are directional antennas. \linebreak
+
+The flare is needed to prevent a sudden change of impedance. If the waveguide is open-ended and has no flare, the change in impedance will be too high and a part of the wave energy will get reflected back into the waveguide. \linebreak 
+
+Thus, the flare essentially acts as a transitional structure. It ensures the impedance of the waveguide matches with the impedance of the free space, and the radiation can flow smoothly. \linebreak
+
+Based on the shape of the flare, the horn antennas can be classified into three types.
+
+
 
 
 
