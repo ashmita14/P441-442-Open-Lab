@@ -508,15 +508,157 @@ It takes into account the actual losses that might have occurred in the system. 
 \paragraph{HPBW} : Half Power Full Bandwidth is the angular separation in which the power radiated by the antenna decreases by 50\% of the maximum power radiated in the peak direction.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%section - Horn antenna
 \section{Horn Antenna}
-Horn Antenna is one of the most commonly used antenna structures. It consists of a rectangular waveguide which flares out at one end. They are directional antennas. \linebreak
+Horn Antenna is one of the most commonly used antenna structures. It consists of a rectangular waveguide which flares out at one end. They are directional antennas. we power the waveguide using a quarter wavelength monopole antenna. \linebreak
 
 The flare is needed to prevent a sudden change of impedance. If the waveguide is open-ended and has no flare, the change in impedance will be too high and a part of the wave energy will get reflected back into the waveguide. \linebreak 
 
 Thus, the flare essentially acts as a transitional structure. It ensures the impedance of the waveguide matches with the impedance of the free space, and the radiation can flow smoothly. \linebreak
 
 Based on the shape of the flare, the horn antennas can be classified into three types.
+\begin{enumerate}[i.)]
+  \item \textbf{H-Plane sectoral} : The `a' side (longer side) is flared and `b' side (shorter side) is flat.
+  \item \textbf{E-Plane sectoral} : The `b' side (shorter side) is flared and `a' side (longer side) is flat.
+  \item \textbf{Pyramidal} : Both `a' and `b' sides are flared.
+\end{enumerate}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{Images/typesofhornantenna.png}
+  \caption{Fig 8. Types of Horn Antenna}
+  \caption{\tiny Source : \url{https://www.ece.rutgers.edu/~orfanidi/ewa/ch21.pdf}}
+\end{figure}
+%subsection - Pyramidal Horn antenna
+\subsection{Pyramidal Horn Antenna}
+We have used a pyramidal horn antenna for our setup. \linebreak
+Let A and B be length of the sides of the horn. We can look at the geometry of the horn to determine certain parameters.
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\textwidth]{Images/hornantennageometry.png}
+  \caption{Fig 9. Geometry of Pyramidal Horn Antenna}
+  \caption{\tiny Source : \url{https://www.ece.rutgers.edu/~orfanidi/ewa/ch21.pdf}}
+\end{figure}
+$R_A$ and $R_B$ are the perpendicular distance between the plane of the waveguide opening and the plane of the horn. They must be equal in length. They are given as :
+\begin{equation}
+  R_a = \dfrac{A}{A-a}R_A \, , \quad R_b \dfrac{B}{B-b}R_B \label{eq:22}
+\end{equation}
+$\Delta_a$ and $\Delta_b$ represent the maximum deviation of the radial distance from the plane of the horn. Fpr any distance x along A and y along B, they are given as :
+\begin{equation}
+  \Delta_a(x)=\dfrac{x^2}{R_a} \, , \quad \Delta_b(y)=\dfrac{y^2}{R_b} \label{eq:23}
+\end{equation}
+%subsection - Determining Optimum parameters
+\subsection{Determing Optimum Parameters}
+If we wish to find the optimum dimensions of the flare, we need to define two parameters, $\sigma_a$ and $\sigma_b$. 
+\begin{equation}
+  \sigma^2_a = \dfrac{A}{2\lambda R_a} \, , \quad \sigma^2_b = \dfrac{B}{2\lambda R_b} \label{eq:24}
+\end{equation}
+Different values of $\sigma_a$ and $\sigma_b$ give us the corresponding flare parameters. Now, when we use these values along with the dimension of the waveguide and required gain, we can obtain the flare dimensions. \linebreak
+These values are calculated using \textit{hopt} function in the ewa library in Matlab/Octave.
+\begin{equation*}
+  [A, B , R, err]=hopt[G,a,b,\sigma_a,\sigma_b,N]
+\end{equation*}
+where,
+\begin{align*}
+  G & \implies \text{Gain of the antenna} \\
+  a,b & \implies \text{waveguide dimensions in units of wavelength} \\
+  A,B & \implies \text{sides of the horn returned in units of wavelength}\\
+  R & \implies \text{axial length from waveguide end to plane of horn given in units of wavelength}
+\end{align*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%section - construction
+\section{Construction of Horn Antenna}
+The construction of the horn antenna has been done in two steps. First, the optimum parameters of the flare were obatined using \textit{hopt} function of ewa libary in Octae/Matlab. Then, using the FEKO software the antenna was build and simulated for near and far fields. \linebreak
+Two antennas have been designed
+%subsection - antenna 1
+\subsection{Antenna 1} %antenna 1
+\subsubsection{Determing Flare Parameters from Octave/Matlab}
+Since the frequency that we wish to detect is 1420MHz, for the first antenna, we chose the cutoff frequency $TE_{10}$ to be 1000MHz. It corresponded the cutoff wavelength of $\lambda_{c1}=30cm$. \linebreak
+The side `a' was taken to be 15cm and side `b' was taken to 7.5cm. These are the most commonly used aspect ratios.
+\begin{equation}
+  a_1=\dfrac{\lambda_{c1}}{2}=15cm \, , \quad b_1=\dfrac{a_1}{2}=7.5cm \label{eq:25}
+\end{equation}
+The values of gain and sigma parameters were chosen to be :
+\begin{equation}
+  G=18dB\, , \quad \sigma_a=1.475 \, \quad \sigma_b=0.74 \label{eq:26}
+\end{equation}
+Using (\myref{eq:25}) and (\myref{eq:26}), the flare parameters are obtained as :
+\begin{equation}
+  A_1=0.96m \, , \quad B_1=0.484m \, , \quad R_1=0.861m \label{eq:27}
+\end{equation}
+\subsubsection{Contruction in FEKO}
+A horn antenna with the parameters given in (\myref{eq:25}), (\myref{eq:26}) and (\myref{eq:27}) was constructed in CadFEKO. The near and far fields were simulated, and the results are shown below. 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\textwidth]{Antenna 1/antenna.png}
+  \caption{Fig 10. Antenna Gain for Far Field (3D plot)}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\textwidth]{Antenna 1/nearfield_perpendicular.png}
+  \caption{Fig 11. Antenna Gain for Near Field (3D plot)}
+\end{figure}
+\begin{figure} [H]
+  \begin{subfigure}[b]{0.6\textwidth}
+      \centering
+      \includegraphics[width=\textwidth]{Antenna 1/farfield_cartesian.png}
+  \end{subfigure}%
+  \begin{subfigure}[b]{0.65\textwidth}
+      \centering
+      \includegraphics[width=\textwidth]{Antenna 1/farfield_polar.png}
+  \end{subfigure}
+  \caption{Fig 12. Far Field Radiation Pattern in Cartesian and Polar Coordinates}
+\end{figure}
+%subsection - antenna 2
+\subsection{Antenna 2}
+\subsubsection{Determining Flare Parameters from Octave/Matlab}
+In this case, the size of the antenna we attempted to reduce the size of the antenna. \linebreak
+We chose the cutoff frequency $TE_{10}$ to be 1100MHz. It corresponded the cutoff wavelength of $\lambda_{c2}=27.2cm$. \linebreak
+The side `a' was taken to be 13.6cm and side `b' was taken to 10cm. 
+\begin{equation}
+  a_2=\dfrac{\lambda_{c2}}{2}=13.6cm \, , \quad b_1=10cm \label{eq:28}
+\end{equation}
+The values of gain and sigma parameters were chosen to be :
+\begin{equation}
+  G=18dB\, , \quad \sigma_a=1.2593 \, \quad \sigma_b=1.0246 \label{eq:29}
+\end{equation}
+These are said to be the most optimal sigma parameter values. \linebreak
+Using (\myref{eq:28}) and (\myref{eq:29}), the flare parameters are obtained as :
+\begin{equation}
+  A_1=0.749m \, , \quad B_1=0.604m \, , \quad R_1=0.69m \label{eq:30}
+\end{equation}
+\subsubsection{Contruction in FEKO}
+A horn antenna with the parameters given in (\myref{eq:28}), (\myref{eq:29}) and (\myref{eq:30}) was constructed in CadFEKO. The near and far fields were simulated, and the results are shown below. 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{Antenna 2/antenna2.png}
+  \caption{Fig 13. Antenna Gain for Far Field (3D plot)}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{Antenna 2/nearfield_2.png}
+  \caption{Fig 14. Antenna Gain for Near Field (3D plot)}
+\end{figure}
+\begin{figure} [H]
+  \begin{subfigure}[b]{0.6\textwidth}
+      \centering
+      \includegraphics[width=\textwidth]{Antenna 2/farfield_cartesian2.png}
+  \end{subfigure}%
+  \begin{subfigure}[b]{0.65\textwidth}
+      \centering
+      \includegraphics[width=\textwidth]{Antenna 2/farfield_polar2.png}
+  \end{subfigure}
+  \caption{Fig 15. Far Field Radiation Pattern in Cartesian and Polar Coordinates}
+\end{figure}
+%subsection -discussion
+\subsection{Discussion}
+We can see for both the antenna, that the radiation field is highly directive. We obtain a gain of upto 20dB. The size of the antenna is not extremely bulky and can be implemented physically. \linebreak
+The near field simulated perpendicular to the aperture of the antenna highlights its directive nature. It shows very high gain in the direction of the horn.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\section - Conclusion
+\section{Conclusion}
+In this report, we first discussed about the theory of waveguides and antenna parameters like directivity, bandwidth, gain, radiation pattern, etc. We also looked at the geometry of horn antennas and their various parameters. \linebreak
 
+The optimal dimensions for the horn antenna were then calculated using Octave/Matlab, for given sigma parameters, gain and waveguide dimensions. The data from the same was used to contruct a horn antenna in FEKO and simulate near and far field patterns. \linebreak
 
+Two antennas were designed by this process, both with gain 18dB. One was designed using the standard a/b ratio of 2, and the other was designed with $a/b=1.36$. In the second design, it was attempted to reduce the size of the antenna to make it less bulky without compromising the gain and directivity of the first design. \linebreak
+
+We obtain both the antennas to be highly directive with gains of almost 20dB. Thus, the ratio $a/b=1.36$ allowed us to build a smaller antenna while keeping the gain at around 18-20dB. It can be considered as an improvement to the design.
 
 
 
