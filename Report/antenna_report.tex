@@ -143,7 +143,7 @@ citecolor=blue,
 		\vspace*{0.2cm}
 		\textbf{\uline{P441/P442 - Open Lab Experiment}} \linebreak
 		\vspace{1.5cm}\linebreak
-		\textbf{\Large{ANTENNA SIMULATION}}\linebreak
+		\textbf{\Large{Antenna Simulation for 21cm Hydrogen Line}}\linebreak
 		\vspace{2cm} \linebreak
 		\textit{Submitted By} \linebreak \textbf{ASHMITA PANDA} \linebreak 
 		\textbf{ROLL NO. 1811042} \linebreak
@@ -175,11 +175,144 @@ citecolor=blue,
 \begin{center}
 	\doublespacing
 	\textbf{\Large Abstract} \linebreak
-	\blindtext[1]
+	21cm Hydrogen line is one of the most useful tool of Radio Astronomy in current times. It can give us information about galaxy structures and rotation curves. It also finds applications in cosmology to probe the period from recombination to reionisation. \linebreak
+  In this report, an attempt has been made to design an antenna for detecting this 21cm line. First, the theory of waveguides and antennas has been discussed. The optimum parameters have been calculated using ewa library in Matlab/Octave. The final design has been implemented using the software FEKO. 
 \end{center}
 \rule{17cm}{1pt}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%section - Introduction
+\section{Introduction}
+Antennas are one of the most widely used instrumental tool in physics. They are devices which either convert voltage from a transmitter to radio waves, or pick up radio waves from the atmosphere and convert it into voltage which can be detected by a receiver. \linebreak
 
+In this this report, we aim to :
+\begin{enumerate}[i.)]
+  \item discuss the importance of the 21cm line in modern astronomy and cosmology
+  \item discuss the theory of waveguides
+  \item discuss properties of antennas
+  \item design the antenna using FEKO 
+\end{enumerate} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%section - 21CM HYDROGEN LINE
+\section{21cm Hydrogen Line}
+%subsection - Theory
+\subsection{Theory}
+Neutral hydrogen is the most abundant element of the Universe. It is made up of one proton and one electron. 
+Both the proton and electron are spin-1/2 particles. They can either be in up-spin or down-spin orientation. \linebreak
 
+At any given point of time, the electron and proton in the neutral hydrogen atom, can either be aligned parallel to each other, or anti-parallel to each other. 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.5\textwidth]{Images/hflip.png}
+  \caption{Fig 1. Two orientations of Neutral Hydrogen}
+  \caption{\tiny Source : \url{http://hyperphysics.phy-astr.gsu.edu/hbase/quantum/h21.html}}
+\end{figure}
+
+The parallel spin state is the higher energy state compared to the anti-parallel spin state. The energy difference between the states is around 5.874eV. \linebreak
+
+Whenever a neutral hydrogen atom goes from the parallel spin state to the anti-parallel spin state, it releases this energy in the form of a photon. This transition is called the the Spin-flip transition. \linebreak
+
+From the Einstein-Planck equation :
+\begin{equation}
+  E=h \nu \label{eq:1}
+\end{equation}
+We can find the frequency of the emitted photon as 1420MHz. This corresponds to a wavelength of $\lambda=21$cm. 
+%subsection - Importance
+\subsection{Importance}
+\subsubsection{In Radio Astronomy} % subsubsection 1
+The 21cm line falls in the radio frequency range. It can easily penetrate the interstellar clouds and the Earth's atmosphere, thus can be observed without much interference. \linebreak
+
+If we assume hydrogen atoms to be uniformly distributed throughout the galaxies, we should observe the 21cm line from all directions. The waves we receive will either be redshifted or blueshifted to different extents, depending on the location of their emission in the galaxy. \linebreak
+
+We can then use this information to measure the rotation curve of our galaxy and the relative speed of each spiral arm. This information could in turn be used to indirectly calculate the mass of the galaxy. 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.5\textwidth,height=0.2\textheight]{Images/GalaxyRotation.jpg}
+  \caption{Fig 2. Rotation Curve of a Galaxy}
+  \caption{\tiny Source : \url{https://physicsopenlab.org/2020/09/08/measurement-of-the-milky-way-rotation/}}
+\end{figure}
+\subsubsection{In Cosmology} %subsubsection 2
+The 21cm hydrogen line could be used in cosmology to probe the ``dark ages'' of the Universe, i.e., the period from recombination to reionisation. \linebreak
+The hydrogen line from that epoch is highly red-shifted and obtained in the frequency range of 200MHz to 9MHz on Earth. \linebreak
+
+We can obtain a picture of how the reionisation occured via this information, as we should obtain holes in the 21cm background spectrum from that epoch which correspond to hydrogen atoms which got ionised by the radiation from stars or quasars.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%section - WAVEGUIDES
+\section{Waveguides}
+Before building an antenna, we need to first talk about waveguiding structures. 
+%subsection - What Are Waveguides?
+\subsection{What Are Waveguides?}
+Waveguides are structures which can guide waves, like sound waves or electromagnetic waves in a particular direction with minimal loss in energies. \linebreak
+
+Waveguides for electromagnetic waves are made up of hollow metallic (conducting) tubes. They can carry high frequency radio waves. \linebreak
+
+They can be of several types, namely circular, rectangular, elliptical, ridged etc. 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.5\textwidth]{Images/types_of_waveguides.jpg}
+  \caption{Fig 3. Types of Waveguides}
+  \caption{\tiny Source : \url{https://www.tutorialspoint.com/microwave_engineering/microwave_engineering_waveguides.htm}}
+\end{figure}
+%subsection - Theory
+\subsection{Theory}
+Let us consider a waveguide with some arbitrary cross section.
+\linebreak {\color{red} [insert arbitrary waveguide picture]} \linebreak
+Let's consider z to be the longitudinal direction, and x-y to be the transverse directions. Writing the EM waves :
+\begin{align*}
+  \vec{E}&=\vec{E}_{\perp}+E_z \hat{z} \, , \qquad \vec{E}_{\perp}=E_x \hat{x}+E_y \hat{y} \\
+  \vec{H}&= \vec{H}_{\perp} + H_z \hat{z} \, , \qquad \vec{H}_{\perp} = H_x \hat{x}+H_y \hat{y} 
+\end{align*}
+We know from Maxwell's equation :
+\begin{equation}
+  \nabla \times \vec{E} = -j\omega \mu \vec{H} \label{eq:2}
+\end{equation}
+where, $\mu$ is the permeability of the space. \linebreak
+Using the forms of EM waves written above :
+\begin{align*}
+  & \left( \nabla_{\perp}+\dfrac{\partial}{\partial z} \hat{z} \right) \times \left( \vec{E}_{\perp}+E_z \hat{z} \right) = -j\omega \mu \left( \vec{H}_{\perp}+ H_z \hat{z} \right) \\
+  \implies & \nabla_{\perp} \times E_{\perp} + \nabla_{\perp}\times \left( E_z \hat{z} \right) +\dfrac{\partial}{\partial z}\hat{z}\times \vec{E}_{\perp} + \cancelto{0}{\dfrac{\partial}{\partial z} \hat{z}\times \left( E_z \hat{z}\right)} = -j\omega \mu \left( \vec{H}_{\perp}+H_z \hat{z}\right)
+\end{align*}
+The last term on LHS goes to zero as it involves the cross product of two parallel vectors. \linebreak
+We can also see that the first term on LHS is along z direction, and the second and third terms are transverse terms. Equating the transverse components we obtain :
+\begin{equation}
+  \vec{H}_{\perp}=-\dfrac{1}{j\omega \mu} \left\{ \nabla_{\perp} \times \left( E_z \hat{z} \right) + \dfrac{\partial}{\partial z} \hat{z}\times \vec{E}_{\perp} \right\} \label{eq:3}
+\end{equation}
+Similarly, using the other Maxwell's equation :
+\begin{equation}
+  \nabla \times \vec{H} = j\omega \varepsilon \vec{E} \label{eq:4}
+\end{equation}
+where, $\epsilon$ is the permittivity of the space. \linebreak
+We obtain the transverse component of electric field as :
+\begin{equation}
+  \vec{E}_{\perp} = \dfrac{1}{j\omega \varepsilon} \left\{ \nabla_{\perp}\times \left( H_z \hat{z} \right)+\dfrac{\partial}{\partial z}\hat{z}\times \vec{H}_{\perp} \right\} \label{eq:5}
+\end{equation}
+Now substituting for $\vec{H}_{\perp}$ from (\myref{eq:3}) in (\myref{eq:5}) :
+\begin{equation*}
+  \omega^2 \mu \varepsilon - \dfrac{\partial}{\partial z} \hat{z}\times \dfrac{\partial}{\partial z} \hat{z} \times \vec{E}_{\perp} = -j\omega \mu \nabla_{\perp} \times \left( H_z \hat{z} \right)+\left( \dfrac{\partial}{\partial z}\hat{z} \right) \times \nabla_{\perp} \times \left( E_z \hat{z} \right)
+\end{equation*}
+Using the triple product identity :
+\begin{equation*}
+  \vec{A}\times \vec{B}\times \vec{C}=\left( \vec{A}.\vec{C} \right)\vec{B}-\left( \vec{A}.\vec{B} \right)\vec{C}
+\end{equation*}
+We simplify the triple product terms in the equation above :
+\begin{align*}
+  \dfrac{\partial}{\partial z}\hat{z}\times \dfrac{\partial}{\partial z} \hat{z} \times \vec{E}_{\perp} &= - \dfrac{\partial^2}{\partial z^2}\vec{E}_{\perp} \\
+  \dfrac{\partial}{\partial z}\hat{z}\times \nabla_{\perp}\times E_z \hat{z} &= \nabla_{\perp} \left( \dfrac{\partial E_z}{\partial z} \right)
+\end{align*}
+The final equation now becomes :
+\begin{equation}
+  \omega^2 \mu \varepsilon \vec{E}_{\perp} +\dfrac{\partial^2}{\partial z^2}\vec{E}_{\perp} = -j\omega \mu \nabla_{\perp}\times \left( H_z \hat{z} \right)+\nabla_{\perp} \left( \dfrac{\partial E_z}{\partial z} \right) \label{eq:6}
+\end{equation}
+The Maxwell's equations have only two independent components. Thus, we can choose the z-component of the electric and magnetic fields as the two independent components. So, (\myref{eq:6}) gives us how the transverse electric field depend on the independent components $E_z$ and $H_z$. \linebreak
+
+Taking a travelling wave antasz along the z direction :
+\begin{equation}
+  E\, , H \sim \exp(-\gamma z) \label{eq:7}
+\end{equation}
+We ignore solutions for waves travelling in negative direction after reflection by assuming the waveguide is of infinite length. \linebreak
+Given the ansatz in (\myref{eq:7}), we can write :
+\begin{equation*}
+  \dfrac{\partial}{\partial z} \equiv -\gamma \, , \quad \dfrac{\partial^2}{\partial z^2} \equiv \gamma^2
+\end{equation*}
+Using this in 
 
 
 \end{document}
