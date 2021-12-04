@@ -251,10 +251,14 @@ They can be of several types, namely circular, rectangular, elliptical, ridged e
   \caption{Fig 3. Types of Waveguides}
   \caption{\tiny Source : \url{https://www.tutorialspoint.com/microwave_engineering/microwave_engineering_waveguides.htm}}
 \end{figure}
-%subsection - Theory
-\subsection{Theory}
+%subsection - Arbitrary Waveguide
+\subsection{Arbitrary Waveguide}
 Let us consider a waveguide with some arbitrary cross section.
-\linebreak {\color{red} [insert arbitrary waveguide picture]} \linebreak
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.4\textwidth]{Images/arbitrary_waveguide.jpg}
+  \caption{Fig 4. Arbitrary Waveguide Structure}
+\end{figure}
 Let's consider z to be the longitudinal direction, and x-y to be the transverse directions. Writing the EM waves :
 \begin{align*}
   \vec{E}&=\vec{E}_{\perp}+E_z \hat{z} \, , \qquad \vec{E}_{\perp}=E_x \hat{x}+E_y \hat{y} \\
@@ -307,12 +311,124 @@ Taking a travelling wave antasz along the z direction :
 \begin{equation}
   E\, , H \sim \exp(-\gamma z) \label{eq:7}
 \end{equation}
+$\gamma$ is called the absorption coefficient. \linebreak
+
 We ignore solutions for waves travelling in negative direction after reflection by assuming the waveguide is of infinite length. \linebreak
 Given the ansatz in (\myref{eq:7}), we can write :
 \begin{equation*}
   \dfrac{\partial}{\partial z} \equiv -\gamma \, , \quad \dfrac{\partial^2}{\partial z^2} \equiv \gamma^2
 \end{equation*}
-Using this in 
+Using this in (\myref{eq:6}) :
+\begin{equation*}
+  \left( \omega^2 \mu \varepsilon+\gamma^2 \right) \vec{E}_{\perp} = -j\omega \mu \nabla_{\perp} \times \left( H_z \hat{z} \right)-\gamma \nabla_{\perp} E_z
+\end{equation*}
+We can define :
+\begin{equation}
+  \omega^2\mu \varepsilon+\gamma^2 = h^2 \label{eq:8}
+\end{equation}
+$h$ is the propagation constant for the transverse wave. \linebreak
+
+Using this, we get the final form for the transverse electric and magnetic fields as :
+\begin{align}
+  \vec{E}_{\perp} &= -\dfrac{j \omega \mu}{h^2} \nabla_{\perp} \times \left( H_z \hat{z} \right) - \dfrac{\gamma}{h^2}\nabla_{\perp} E_z \label{eq:9}\\
+  \vec{H}_{\perp} &= \dfrac{j\omega \varepsilon}{h^2}\nabla_{\perp} \times \left( E_z \hat{z} \right)-\dfrac{\gamma}{h^2} \nabla_{\perp} H_z \label{eq:10}
+\end{align}
+Since we have chosen the z-components of electric and magnetic fields as the independent components, we can find the complete solutions for the wave motion if we can determine $E_z$ and $H_z$. \linebreak
+
+For a medium that is lossless, 
+\begin{equation}
+  \gamma = j \beta \label{eq:11}
+\end{equation}
+We can conclude that :
+\begin{enumerate}[i.)]
+  \item $E_z$ and $H_z$ both cannot be zero, unless h is zero. Converse is also true. This implies that if both the longitudinal components are zero, there is no transverse wave propagation in the waveguide. EM wave travels as if it is in free space. 
+  \item The above mode is called the TEM mode, i.e., Transverse Electric and Magnetic field mode. It is a non-dispersive mode.
+  \item When $E_z=0$ and $H_z \neq 0$, it is called the TE mode, i.e., the Transverse Electric mode. It is dispersive mode. 
+  \item When $E_z \neq 0$ and $H_z=0$, it is called the TM mode, i.e., the Transverse Magnetic mode. It is a dispersive mode.
+\end{enumerate}
+%subsection - Rectangular Waveguides
+\subsection{Rectangular Waveguides}
+A rectangular waveguide is one of the most common types of waveguides used. 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.5\textwidth]{Images/rectangular.png}
+  \caption{Fig 5. Rectangular Waveguide}
+  \caption{\tiny Source : \url{https://www.tutorialspoint.com/microwave_engineering/microwave_engineering_waveguides.htm}}
+\end{figure}
+Let us consider the electromagnetic waves moving along z-direction. \linebreak
+We will also assume that for this structure $a\geq b$.\linebreak
+\subsubsection{TM Mode} %subsubsection - TM Mode
+We will first consider the solutions of TM Mode, i.e.,
+\begin{equation*}
+  E_z\neq 0 \, , \quad H_z=0
+\end{equation*}
+Writing the wave equation for electric field travelling in z-direction :
+\begin{align*}
+  & \nabla^2 E_z + \omega^2 \mu \varepsilon E_z =0 \\
+  \implies & \dfrac{\partial^2 E_z}{\partial x^2}+\dfrac{\partial^2 E_z}{\partial y^2}+\dfrac{\partial^2 E_z}{\partial z^2}+\omega^2 \mu \varepsilon E_z=0 
+\end{align*}
+Applying separation of variables :
+\begin{equation*}
+  E_z(x,y,z) = X(x)Y(y)Z(z) 
+\end{equation*}
+Putting this in the wave equation, we obtain the final solution as :
+\begin{align*}
+  X(x)&= c_1 \cos(Ax)+c_2 \sin(Ax) \\
+  Y(y)&= c_3 \cos(By)+c_4 \sin(By) \\
+  Z(z)&= c_5 \exp(-j \beta z)+c_6 \exp(j \beta z)
+\end{align*}
+The solutions $X(x)$ and $Y(y)$ are standing wave solutions. The solution $Z(z)$ is the travelling wave solution.\linebreak
+
+As we had assumed earlier that the waveguide we are using is of infinite length, and there is no reflected wave (wave travelling in -z direction), we can write $c_6=0$. \linebreak
+
+Now using the four boundary conditions due to the four walls upon which $E_z$ is tangential, i.e.,
+\begin{equation*}
+  E_z = 0 \quad \text{ for } \quad x=0\, , \quad x=a \, , \quad y=0 \, , \quad y=a
+\end{equation*}
+we obtain the constants $A$ and $B$ as :
+\begin{equation}
+  A=\dfrac{m\pi}{a} \, , \quad B=\dfrac{n\pi}{b} \label{eq:12}
+\end{equation}
+We obtain the final solution for $E_z$ as :
+\begin{equation}
+  E_z = C \sin\left( \dfrac{m\pi}{a}x \right)\sin\left( \dfrac{n\pi}{b}y \right)\exp\left( -j\beta z \right) \label{eq:13}
+\end{equation}
+Now using the expression for $E_z$ (\myref{eq:13}) in (\myref{eq:9}) and (\myref{eq:10}), we obtain the transverse wave equations as :
+\begin{align}
+  E_x &= -\dfrac{j \beta}{h^2}\dfrac{\partial E_z}{\partial x} = -\dfrac{j \beta}{h^2}\left( \dfrac{m\pi}{a} \right) C \cos \left( \dfrac{m \pi x}{a} \right) \sin\left( \dfrac{n\pi y}{b} \right) \exp(-j\beta z) \label{eq:14} \\
+  E_y &= -\dfrac{j \beta}{h^2}\dfrac{\partial E_z}{\partial y} = -\dfrac{j \beta}{h^2} \left( \dfrac{n\pi}{a} \right) C \sin\left( \dfrac{m\pi x}{a} \right)\cos\left( \dfrac{n\pi y}{b} \right) \exp(-j\beta z) \label{eq:15} \\
+  H_x &= \dfrac{j\omega \varepsilon}{h^2} \dfrac{\partial E_z}{\partial y} = \dfrac{j \omega \varepsilon}{h^2}\left( \dfrac{n\pi}{b} \right) C\sin\left( \dfrac{m\pi x}{a} \right) \cos\left( \dfrac{n\pi y}{b} \right)\exp(-j\beta z) \label{eq:16} \\
+  H_y &= -\dfrac{j\omega \varepsilon}{h^2} \dfrac{\partial E_z}{\partial x} = -\dfrac{j \omega \varepsilon}{h^2} \left( \dfrac{m\pi}{a} \right)C \cos\left( \dfrac{m\pi x}{a} \right)\sin\left( \dfrac{n\pi y}{b} \right) \exp(-j\beta z) \label{eq:17}
+\end{align}
+The conclusions we can immediately draw from the above equations are as follows :
+\begin{enumerate}[i.)]
+  \item The TM\textsubscript{00} mode does not exist. All the waves become zero. 
+  \item If either $m=0$ or $n=0$, then also none of the components exist. Thus, TM\textsubscript{m0} and TM\textsubscript{0n} modes also do not exist.
+  \item TM\textsubscript{11} is the lowest TM mode that can exist in the rectangular waveguide.
+\end{enumerate}
+Also, from (\myref{eq:8}), (\myref{eq:11}) and the separable solutions, we can write :
+\begin{equation}
+  h^2=\omega^2 \mu \varepsilon -\beta^2 = A^2+B^2 = \left( \dfrac{m\pi}{a} \right)^2 + \left( \dfrac{n \pi}{b} \right)^2 \label{eq:18}
+\end{equation}
+\subsubsection{TE Mode} %subsubsection - TE Mode
+Now considering the TE Mode, i.e.,
+\begin{equation*}
+  E_z=0 \, , \quad H_z \neq 0
+\end{equation*}
+We need to first solve for $H_z$, as we did for the case of TM mode. \linebreak
+After following the similar procedure, we obtain the form of $H_z$ as :
+\begin{equation}
+  H_z = C \cos\left( \dfrac{m\pi x}{a} \right)\cos\left( \dfrac{n\pi y}{a} \right) \exp(-j\beta z) \label{eq:19}
+\end{equation}
+We can analyse the above equation directly to look for possible lowest order modes.
+\begin{enumerate}[i.)]
+  \item For $m=n=0$, $H_z$ is a constant. It does not vary with time. So, all transverse components of the field is zero, i.e., $\vec{E}_{\perp}=\vec{H}_{\perp}=0$. This is because $\vec{E}_{\perp}$ and $\vec{H}_{\perp}$ contain space derivatives of $H_z$. From this we can immediately as $H_z$ must be zero too, as magnetic field cannot exist in the absence of a time-varying electric field. Thus, the TE\textsubscript{00} mode does not exist. 
+  \item The TE\textsubscript{m0} and TE\textsubscript{0n} modes exist. Thus the lowest order mode could be either TE\textsubscript{10} or TE\textsubscript{01} mode.
+\end{enumerate}
+\subsubsection{Cut-off Frequency, Dominant Mode and Field Pattern}
+
+
+
 
 
 \end{document}
